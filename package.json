@@ -1,7 +1,8 @@
 {
   "name": "@qazi9amaan/formlibrary",
+  "description": "A delightful npm package that provides you with Tailwind CSS styled UI elements 🌟, fully compatible with Formik 📝. Unleash your creativity with a variety of components 🔧 and utilities 🔧 to design stunning dashboards 📊, including tables 📋, forms 📁, and more! Get ready to level up your web projects! 🚀💯",
   "private": false,
-  "version": "0.0.0",
+  "version": "0.0.2",
   "type": "module",
   "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
@@ -17,14 +18,35 @@
   "files": [
     "/dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qazi9amaan/formlibrary.git"
+  },
+  "keywords": [
+    "tailwindcss",
+    "react",
+    "component library",
+    "formik",
+    "utilities"
+  ],
+  "author": {
+    "name": "Qazi Amaan",
+    "email": "qazi9amaan@gmail.com",
+    "url": "https://github.com/qazi9amaan"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/qazi9amaan/formlibrary/issues"
+  },
+  "homepage": "https://github.com/qazi9amaan/formlibrary#readme",
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
+    "setup": "yarn && husky install",
     "dev": "vite",
-    "build": "tsc && vite build",
-    "prepare": "npm run build",
-    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "build:lib": "tsc && vite build",
+    "lint-staged": "lint-staged",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -36,7 +58,7 @@
   },
   "devDependencies": {
     "@commitlint/cli": "^17.3.0",
-    "@commitlint/config-conventional": "^17.3.0",
+    "@commitlint/config-conventional": "^17.6.3",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@typescript-eslint/eslint-plugin": "^5.57.1",
@@ -54,7 +76,7 @@
     "eslint-plugin-react-refresh": "^0.3.4",
     "eslint-plugin-simple-import-sort": "^8.0.0",
     "eslint-plugin-unused-imports": "^2.0.0",
-    "husky": "^8.0.2",
+    "husky": "^8.0.3",
     "lint-staged": "^13.0.4",
     "postcss": "^8.4.23",
     "prettier": "^2.6.2",

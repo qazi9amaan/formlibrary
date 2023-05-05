@@ -6,6 +6,7 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 import tailwindcss from 'tailwindcss';
 
 export default defineConfig({
+  base: './',
   build: {
     lib: {
       entry: path.resolve(__dirname, 'index.ts'),
