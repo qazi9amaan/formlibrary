@@ -74,9 +74,6 @@ import { ModalContext, ModalProvider } from '@qazi9amaan/formlibrary';
 // hocs, hooks and utils
 import { useError } from '@qazi9amaan/formlibrary';
 import { withForm } from '@qazi9amaan/formlibrary';
-
-
-
 ```
 
 
@@ -98,11 +95,11 @@ const LoginForm = withForm<ILogin>({
   }),
   mode: 'CREATE',
 })(LoginWrappedForm);
+```
 
-```## 📝 FormikBuilder
+## 📝 FormikBuilder
 
 ```javascript
-
  // formik builder
     <FormikBuilder
         mode='CREATE'
@@ -169,7 +166,6 @@ import { useError } from '@qazi9amaan/formlibrary';
 const { error, setError } = useError();
 
 setError('Error message');
-
 ```
 
 ## 📝 useLoader
@@ -182,8 +178,10 @@ const { loading, setLoading } = useLoader();
 
 setLoading(true);
 
+```
 
 ## 📝 useModal
+
 ```javascript
 import { useModal } from '@qazi9amaan/formlibrary';
 const { openDeleteModal } = useModal();
