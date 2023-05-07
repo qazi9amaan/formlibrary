@@ -45,7 +45,7 @@
     "prettier/prettier": [
       "error",
       {
-        "max-len": 80,
+        "max-len": 100,
         "singleQuote": true,
         "endOfLine": "auto"
       }

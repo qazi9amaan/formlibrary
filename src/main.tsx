@@ -1,10 +1,15 @@
+import './index.css';
+import { App } from './App';
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
+import { ModalProvider } from '@lib/contexts/Modal';
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+const element = document.getElementById('root');
+ReactDOM.createRoot(element!).render(
   <React.StrictMode>
-    <App />
+    <ModalProvider>
+      <App />
+    </ModalProvider>
   </React.StrictMode>,
 );

@@ -33,20 +33,162 @@ import { Table, Form } from '@qazi9amaan/formlibrary';
 
 ## 📝 Documentation
 
-### Button Component
-
-Import and use like a regular button:
-
 ```javascript
+// form components
 import { Button } from '@qazi9amaan/formlibrary';
+import { FormInput } from '@qazi9amaan/formlibrary';
+import { FormDate } from '@qazi9amaan/formlibrary';
+import { FormButton } from '@qazi9amaan/formlibrary';
+import { FormSelect } from '@qazi9amaan/formlibrary';
+import { FormMultiSelect } from '@qazi9amaan/formlibrary';
+import { FormCheckbox } from '@qazi9amaan/formlibrary';
+import { FormRadio } from '@qazi9amaan/formlibrary';
+import { FormChips } from '@qazi9amaan/formlibrary';
+import { FormTextarea } from '@qazi9amaan/formlibrary';
 
-<Button>Click me!</Button>
-// - children (optional): Content inside the button.
-// - label (optional): Alternative to children, displays as button's content if provided.
-// - type (optional): 'button', 'submit', or 'reset'. Default: 'button'.
-// -> default button props
+// formik builder forms from json
+import { FormikBuilder } from '@qazi9amaan/formlibrary'
+
+// layouts
+import { Row } from '@qazi9amaan/formlibrary'
+import { Column } from '@qazi9amaan/formlibrary'
+import { AutoLayout } from '@qazi9amaan/formlibrary'
+
+import { Alert } from '@qazi9amaan/formlibrary'
+
+import { Button } from '@qazi9amaan/formlibrary'
+import { EmptyPlaceHolder } from '@qazi9amaan/formlibrary'
+import { Header } from '@qazi9amaan/formlibrary'
+import { Panel } from '@qazi9amaan/formlibrary'
+
+// Loader with utility
+import { Loader } from '@qazi9amaan/formlibrary'
+import { useLoader } from '@qazi9amaan/formlibrary'
+import { LoaderProvider, LoaderContext } from '@qazi9amaan/formlibrary'
+
+// Modal with utility
+import { Modal } from '@qazi9amaan/formlibrary'
+import { useModal } from '@qazi9amaan/formlibrary';
+import { ModalContext, ModalProvider } from '@qazi9amaan/formlibrary';
+
+// hocs, hooks and utils
+import { useError } from '@qazi9amaan/formlibrary';
+import { withForm } from '@qazi9amaan/formlibrary';
+
+
+
 ```
 
+
+## 📝 withForm
+
+```javascript
+import { withForm } from '@qazi9amaan/formlibrary';
+const LoginForm = withForm<ILogin>({
+  initialValues: {
+    username: '',
+    password: '',
+  },
+  mapPropsToValues: (props) => {
+    return { username: props.hello };
+  },
+  validationSchema: Yup.object().shape({
+    username: Yup.string().required('Username is required'),
+    password: Yup.string().required('Password is required'),
+  }),
+  mode: 'CREATE',
+})(LoginWrappedForm);
+
+```## 📝 FormikBuilder
+
+```javascript
+
+ // formik builder
+    <FormikBuilder
+        mode='CREATE'
+        formJSON={formJSON}
+        handleSubmit={handleSubmit}
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+    />
+
+    export type IReg = {
+        email: string;
+        password: string;
+        confirmPassword?: string;
+    };
+
+    export const initialValues: IReg = {
+        email: '',
+        password: '',
+        confirmPassword: '',
+    };
+
+    export const validationSchema = Yup.object().shape({
+        email: Yup.string().email('Invalid email').required('Required'),
+        password: Yup.string().required('Required'),
+        confirmPassword: Yup.string()
+            .oneOf([Yup.ref('password')], 'Passwords must match')
+            .required('Required'),
+    });
+
+    export const formJSON: IFormJSON<IReg, IBuilderProps<IReg>> = [
+        {
+            id: 1,
+            items: [
+            {
+                label: 'Email',
+                name: 'email',
+                type: 'email',
+            },
+            ],
+        },
+        {
+            id: 2,
+            items: [
+            {
+                label: 'Password',
+                name: 'password',
+                type: 'password',
+            },
+            {
+                label: 'Confirm Password',
+                name: 'confirmPassword',
+                type: 'password',
+            },
+            ],
+        },
+    ];   
+```
+
+## 📝 useError
+
+```javascript
+import { useError } from '@qazi9amaan/formlibrary';
+
+const { error, setError } = useError();
+
+setError('Error message');
+
+```
+
+## 📝 useLoader
+
+```javascript
+
+import { useLoader } from '@qazi9amaan/formlibrary';
+
+const { loading, setLoading } = useLoader();
+
+setLoading(true);
+
+
+## 📝 useModal
+```javascript
+import { useModal } from '@qazi9amaan/formlibrary';
+const { openDeleteModal } = useModal();
+openDeleteModal();
+```
 
 ## 🤝 Contributing
 

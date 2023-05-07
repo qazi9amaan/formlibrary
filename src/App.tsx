@@ -1,7 +1,11 @@
-import { Button } from '@lib/components/atoms/Button';
+import { useModal } from '@lib/contexts/Modal';
+import { Button, useError } from '../index';
 
-function App() {
-  return <Button label='Button' />;
-}
-
-export default App;
+export const App = () => {
+  const { openDeleteModal } = useModal();
+  return (
+    <>
+      <Button onClick={() => openDeleteModal()}>Open Modal</Button>
+    </>
+  );
+};

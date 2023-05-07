@@ -1,3 +1,261 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.form--row .form--section {
+  @apply md:mb-2;
+}
+.form--row .form--section .form--title {
+  @apply text-xl md:text-2xl font-medium opacity-80 mb-1 md:mb-2;
+}
+.form--row .form--section .form--container {
+  @apply flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-3 pt-3;
+}
+.form--input {
+  @apply flex-1 mx-[.1em];
+}
+
+.form--input .form--input-wrapper {
+  @apply flex flex-col;
+}
+
+.form--input .form--label {
+  @apply text-sm font-medium mb-1 opacity-80;
+}
+.form--input .form--label-error {
+  @apply opacity-100 text-red-500;
+}
+
+.form--input .form--input-field::placeholder {
+  @apply text-gray-300;
+}
+.form--input .form--input-field {
+  @apply rounded-sm border-gray-200  w-full max-w-full transition duration-200;
+}
+.form--input .form--input-field:disabled {
+  @apply bg-gray-100 text-gray-400;
+}
+
+.form--input .form--error {
+  @apply border-red-500 text-red-500 max-w-full bg-red-50;
+}
+.form--input .form--error-text {
+  @apply text-red-500 w-1/2 text-xs font-medium pt-1;
+}
+
+.form-horizontal {
+  @apply md:!flex md:!flex-row md:!items-start md:space-x-2;
+}
+
+/* ------------select ---------- */
+.form-select {
+  -moz-appearance: menulist;
+  -webkit-appearance: menulist;
+  appearance: menulist;
+  background: none;
+  padding: 0.3em;
+}
+
+/*--------------- checkbox ---------- */
+
+.form--check-box {
+  @apply flex space-x-2 cursor-pointer sm:mb-0 me-4;
+}
+
+.form--check-box input {
+  @apply transition duration-300;
+  @apply ring-0 border-gray-200 rounded-sm;
+  @apply focus:!outline-none focus:ring-white;
+}
+
+.form--check-box-text {
+  @apply text-lg opacity-70 leading-snug flex items-start flex-col;
+}
+.form--check-box-text .sub-label {
+  @apply !text-sm opacity-70 leading-snug;
+}
+
+.form--check-box input:checked + .form--check-box-text {
+  @apply opacity-100 font-medium;
+}
+
+.form--check-box input:checked + .form--check-box-text .sub-label {
+  @apply !opacity-70 !font-normal;
+}
+
+.form--check-box--error input:checked {
+  @apply border-red-500  bg-red-500;
+}
+.form--check-box--error input:checked + .form--check-box-text {
+  @apply text-red-500;
+}
+
+.form--check-box input:disabled + .form--check-box-text {
+  @apply opacity-80 text-gray-400;
+}
+
+.form--check-box input:disabled,
+.form--check-box--error input:disabled {
+  @apply bg-gray-100 border-gray-200;
+}
+/*--------------- radio-btn ---------- */
+
+.form--radio-btn {
+  @apply flex items-center cursor-pointer border border-gray-100 text-gray-400 hover:opacity-80 font-medium py-2 md:py-1 px-3 pr-4 rounded-md md:rounded-lg transition duration-300 relative;
+  @apply peer-checked:border-blue-700 peer-checked:text-blue-700;
+  @apply peer-disabled:text-gray-400 peer-disabled:bg-gray-100 peer-disabled:border-gray-100 peer-disabled:hover:opacity-100 peer-disabled:peer-checked:border-gray-100;
+}
+
+.form--radio-btn .circle {
+  @apply p-[.4em] border-gray-400 border rounded-full inline-block  transition duration-300 mr-[.5em];
+  @apply peer-checked:bg-blue-700 peer-checked:border-white;
+  @apply peer-disabled:border-gray-400 peer-disabled:peer-checked:bg-gray-400 peer-disabled:peer-checked:border-gray-100;
+}
+
+.form--radio-btn-label {
+  @apply text-sm font-medium mb-1 opacity-80;
+}
+
+.form--radio-btn--error {
+  @apply peer-checked:bg-red-50 peer-checked:text-red-600 peer-checked:border-red-500;
+  @apply peer-disabled:text-gray-400 peer-disabled:bg-gray-100  peer-disabled:hover:opacity-100;
+}
+
+.form--radio-btn--error .circle {
+  @apply peer-checked:bg-red-500 peer-checked:border-white;
+}
+
+/* ---------- chips ------------*/
+
+.form--chip {
+  @apply px-4 py-[.4em] cursor-pointer transition duration-300 bg-opacity-80;
+  @apply border border-blue-100 bg-blue-50 rounded-lg;
+  @apply font-medium text-blue-600;
+  @apply w-full block text-center;
+
+  @apply hover:bg-opacity-100 hover:text-blue-700;
+  @apply peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-600;
+}
+
+.form--chip--error {
+  @apply peer-checked:bg-red-600 peer-checked:text-white peer-checked:border-red-600;
+}
+.form--chip {
+  @apply peer-disabled:bg-gray-50 peer-disabled:text-gray-400 peer-disabled:border-gray-200;
+}
+
+/** ---------- Button ---------- */
+.btn-orange {
+  @apply bg-orange-500 text-white hover:bg-orange-600;
+}
+.btn-blue {
+  @apply bg-blue-500 text-white hover:bg-blue-600;
+}
+
+.form--input-button {
+  @apply btn-orange font-medium py-2 px-4 rounded-sm  transition duration-200;
+}
+
+.form--input-button:disabled {
+  @apply bg-gray-200 text-gray-400;
+}
+.form--input-button-error {
+  @apply border border-red-500 bg-red-50 text-red-600 hover:bg-red-50;
+}
+
+/* Button */
+.btn {
+  @apply btn-blue font-medium py-2 px-4 rounded-sm  transition duration-200;
+}
+
+.btn:disabled {
+  @apply bg-gray-100 text-gray-400 border-gray-300 shadow-sm;
+}
+
+/* Loader */
+
+.loader {
+  border-top-color: #3498db;
+  -webkit-animation: spinner 1.5s linear infinite;
+  animation: spinner 1.5s linear infinite;
+}
+
+@-webkit-keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/** ------------------ Dailog Modal ----------------*/
+.dailog-modal {
+  @apply w-full md:w-2/5 p-0 bg-white rounded-2xl;
+  @apply transition-all ease-in-out duration-300;
+}
+
+.dailog-modal::backdrop {
+  background: rgba(51, 55, 80, 0.5);
+}
+.dailog-modal--large {
+  @apply w-full md:w-[80%];
+}
+
+.dailog-modal--large > .dailog-modal--header,
+.dailog-modal--large > .dailog-modal--footer,
+.dailog-modal--large > .dailog-modal--body {
+  padding: 0.7em;
+}
+.dailog-modal--large > .dailog-modal--body {
+  margin: 0.7em 0;
+}
+
+.dailog-modal--header {
+  padding: 0.9em 1.4em;
+  @apply flex justify-between items-center border-b border-b-gray-200;
+}
+
+.dailog-modal--title {
+  @apply font-bold text-2xl;
+}
+
+.dailog-modal--icon {
+  @apply hover:text-gray-500 text-gray-400 cursor-pointer;
+}
+
+.dailog-modal--footer {
+  padding: 1.1em 1.4em;
+  @apply flex justify-end items-center border-t border-t-gray-200;
+}
+
+.dailog-modal--cta {
+  padding: 0.5em 1.1em;
+  @apply font-semibold text-sm text-white  flex flex-row items-center justify-end bg-[#1f81b9] rounded-[2rem];
+}
+
+.dailog-modal--cancel {
+  @apply bg-white text-gray-600 border-0 px-4 font-semibold text-sm outline-none;
+}
+
+.dailog-modal--body {
+  padding: 0.3em 1.4em 1.2em 1.4em;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.dailog-modal--nospacing > .dailog-modal--body {
+  @apply !p-0 mt-0;
+}
