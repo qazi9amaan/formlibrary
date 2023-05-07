@@ -1,5 +1,4 @@
 import { FiArrowLeft } from 'react-icons/fi';
-import { useNavigate } from 'react-router-dom';
 
 type HeaderProps = {
   title: string;

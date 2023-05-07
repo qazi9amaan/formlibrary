@@ -1,5 +1,5 @@
 import { FormikValues } from 'formik';
-import { IFormJSON, IFormRow } from './types';
+import { IFormJSON } from './types';
 import { IFormikComponent } from '@lib/hocs';
 import FormRow from './FormRow';
 import { Button } from '@lib/components/atoms/Button';
@@ -19,7 +19,7 @@ export const FormBuilder = <V extends FormikValues>(props: IProps<V>) => {
   return (
     <div className='form--row'>
       {/* rendering each row */}
-      {formJSON.map((row: IFormRow<V, IProps<V>>) => (
+      {formJSON.map((row: any) => (
         <FormRow {...row} {...props} key={row.id} />
       ))}
       {/* button */}

@@ -1,6 +1,6 @@
 import { FormikValues } from 'formik';
 import { IProps } from './FormBuilder';
-import { IFormItem, IFormRow } from './types';
+import { IFormRow } from './types';
 import { isNA } from '@lib/util';
 import FormItem from './FormItem';
 import { memo } from 'react';
@@ -17,7 +17,7 @@ const FormRow = <V extends FormikValues>(props: IFormRow<V, IProps<V>> & IProps<
       {!isNA(title) && <h2 className='form--title'>{title}</h2>}
       {!isNA(subtitle) && <p className=' text-gray-500 text-sm mt-0 leading-tight'>{subtitle}</p>}
       <div className='form--container'>
-        {items?.map((item: IFormItem<V, IProps<V>>, i) => (
+        {items?.map((item: any, i) => (
           <FormItem key={i} {...item} {...props} />
         ))}
       </div>

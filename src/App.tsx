@@ -1,5 +1,5 @@
 import { useModal } from '@lib/contexts/Modal';
-import { Button, useError } from '../index';
+import { Button } from '../index';
 
 export const App = () => {
   const { openDeleteModal } = useModal();
