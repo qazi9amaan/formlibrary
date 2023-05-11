@@ -1,6 +1,5 @@
-import { getFormikError } from '@lib/util/helpers/formikHelpers';
+import { useForm } from '@lib/hooks';
 import { IFormikElement } from './FormTypes';
-import { useFormikContext } from 'formik';
 import { isNA } from '@lib/util';
 
 export type IFormButton = IFormikElement & {
@@ -10,14 +9,14 @@ export type IFormButton = IFormikElement & {
 
 export const FormButton = (props: IFormButton) => {
   // formik
-  const formik = useFormikContext();
+  const formik = useForm();
 
   const handleOnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     props?.onClick && props?.onClick?.(e, props?.setFieldValue || formik?.setFieldValue);
   };
 
-  const formikError = props?.error || getFormikError(formik, props.name);
+  const formikError = props?.error || formik.getError?.(props.name);
 
   return (
     <div className='form--input'>

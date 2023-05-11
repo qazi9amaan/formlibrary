@@ -1,6 +1,5 @@
+import { useForm } from '@lib/hooks';
 import { IFormOption, IFormikElement } from './FormTypes';
-import { useFormikContext } from 'formik';
-import { getFormikError } from '@lib/util/helpers/formikHelpers';
 import { isNA } from '@lib/util';
 
 export type IFormMultiSelect = IFormikElement & {
@@ -11,9 +10,9 @@ export type IFormMultiSelect = IFormikElement & {
 
 export const FormMultiSelect = (props: IFormMultiSelect) => {
   // formik
-  const formik = useFormikContext();
+  const formik = useForm();
 
-  const formikError = props?.error || getFormikError(formik, props.name);
+  const formikError = props?.error || formik.getError?.(props.name);
   const value = props.value || (formik?.values as any)?.[props?.name] || '';
 
   /** ----- Handlers----- */

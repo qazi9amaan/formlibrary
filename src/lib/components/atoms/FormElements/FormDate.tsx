@@ -1,7 +1,6 @@
+import { useForm } from '@lib/hooks';
 import { IFormikElement } from './FormTypes';
 import { isNA } from '@lib/util';
-import { useFormikContext } from 'formik';
-import { getFormikError } from '@lib/util/helpers/formikHelpers';
 
 export type IFormDate = IFormikElement & {
   setFieldValue?: (field: string, value: Date, shouldValidate?: boolean) => void;
@@ -12,7 +11,7 @@ export type IFormDate = IFormikElement & {
 
 export const FormDate: React.FC<IFormDate> = (props) => {
   // formik
-  const formik = useFormikContext();
+  const formik = useForm();
 
   /** ----- Handlers----- */
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,7 +19,7 @@ export const FormDate: React.FC<IFormDate> = (props) => {
     formik?.setFieldValue?.(props.name, e.target.valueAsDate);
   };
 
-  const formikError = props?.error || getFormikError(formik, props.name);
+  const formikError = props?.error || formik.getError?.(props.name);
   const value = props?.value || (formik?.values as any)?.[props?.name] || new Date();
 
   const minDate = props?.minToday ? new Date() : props?.minDate;

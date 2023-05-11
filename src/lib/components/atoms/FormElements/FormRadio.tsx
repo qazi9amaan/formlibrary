@@ -1,9 +1,8 @@
 import React from 'react';
-import { useFormikContext } from 'formik';
 import { IFormikElement } from './FormTypes';
-import { getFormikError } from '@lib/util/helpers/formikHelpers';
 import { isNA } from '@lib/util';
 import { AutoLayout } from '@lib/components/atoms/Layouts/AutoLayout';
+import { useForm } from '@lib/hooks';
 
 export type IRadioOption = {
   label: string;
@@ -19,7 +18,7 @@ export type FormRadio = IFormikElement & {
 
 export const FormRadio: React.FC<FormRadio> = (props) => {
   // formik
-  const formik = useFormikContext();
+  const formik = useForm();
 
   /** ----- Handlers----- */
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,7 +26,7 @@ export const FormRadio: React.FC<FormRadio> = (props) => {
     formik?.setFieldValue?.(props.name, e.target.value);
   };
 
-  const formikError = props?.error || getFormikError(formik, props.name);
+  const formikError = props?.error || formik?.getError?.(props.name);
   const value = props.value || (formik?.values as any)?.[props?.name] || '';
 
   return (

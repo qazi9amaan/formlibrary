@@ -6,13 +6,13 @@ type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
   type?: 'button' | 'submit' | 'reset';
   label?: string;
   cs?: string;
-};
+} & Omit<React.HTMLProps<HTMLButtonElement>, 'className'>;
 
 export const Button: React.FC<Props> = (props) => {
   const { label, type = 'button', children, cs = '', ...rest } = props;
 
   return (
-    <button {...rest} type={type} className={`btn ${cs}`}>
+    <button {...rest} type={type} className={`btn btn-blue ${cs}`}>
       {isNA(label) ? children : label}
     </button>
   );

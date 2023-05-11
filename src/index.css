@@ -152,6 +152,10 @@
   @apply bg-blue-500 text-white hover:bg-blue-600;
 }
 
+.btn-outline-white {
+  @apply border border-gray-300 text-gray-700 bg-white hover:bg-gray-50;
+}
+
 .form--input-button {
   @apply btn-orange font-medium py-2 px-4 rounded-sm  transition duration-200;
 }
@@ -165,7 +169,7 @@
 
 /* Button */
 .btn {
-  @apply btn-blue font-medium py-2 px-4 rounded-sm  transition duration-200;
+  @apply font-medium py-2 px-4 rounded-sm  transition duration-200;
 }
 
 .btn:disabled {
@@ -258,4 +262,11 @@
 
 .dailog-modal--nospacing > .dailog-modal--body {
   @apply !p-0 mt-0;
+}
+
+/* table */
+.multiselect-btn {
+  @apply py-1 px-3 rounded-md text-gray-500 border border-gray-400 h-8;
+  @apply duration-300 ease-in-out  transition-all hover:scale-95 hover:opacity-80;
+  @apply disabled:opacity-80 disabled:text-gray-400 disabled:cursor-not-allowed disabled:border-gray-200;
 }

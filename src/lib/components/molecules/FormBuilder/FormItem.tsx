@@ -1,4 +1,4 @@
-import { FormikValues } from 'formik';
+import { FormikValues, useFormikContext } from 'formik';
 import { IFormItem, IFormItemType } from './types';
 import { IProps } from './FormBuilder';
 import {
@@ -15,7 +15,7 @@ import { isNA } from '@lib/util';
 import { memo } from 'react';
 
 type ComponentMappingType = {
-  [key in IFormItemType]: any;
+  [key in IFormItemType]: React.ElementType;
 };
 
 const componentMapping: ComponentMappingType = {
@@ -29,8 +29,10 @@ const componentMapping: ComponentMappingType = {
   input: FormInput,
 };
 
-const FormItem = <V extends FormikValues>(props: IFormItem<V, IProps<V>> & IProps<V>) => {
-  const { values, hiddenWhen, disabledWhen, additionalProps, label, type } = props || {};
+const FormItemComponent = <V extends FormikValues>(props: IFormItem<V, IProps<V>> & IProps<V>) => {
+  const { hiddenWhen, disabledWhen, additionalProps, label, type } = props || {};
+
+  const { values } = useFormikContext<V>();
 
   // hide if item is hidden
   const isHidden = hiddenWhen?.(values, props);
@@ -38,16 +40,10 @@ const FormItem = <V extends FormikValues>(props: IFormItem<V, IProps<V>> & IProp
 
   if (isHidden) return null;
 
-  const Component = componentMapping[type] || componentMapping.input;
+  const Component: React.ElementType = componentMapping[type] || componentMapping.input;
   return (
-    <Component
-      {...props}
-      {...(additionalProps as any)}
-      label={label}
-      type={type as any}
-      disabled={disabled}
-    />
+    <Component {...props} {...additionalProps} label={label} type={type} disabled={disabled} />
   );
 };
 
-export default memo(FormItem);
+export const FormItem = memo(FormItemComponent);

@@ -21,7 +21,7 @@
     "typeRoots": ["./dist/index.d.ts", "node_modules/@types"],
     "useDefineForClassFields": true,
     "allowJs": false,
-    "esModuleInterop": false,
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "declaration": true,

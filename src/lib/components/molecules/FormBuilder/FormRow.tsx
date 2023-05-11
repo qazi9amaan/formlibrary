@@ -1,12 +1,14 @@
-import { FormikValues } from 'formik';
+import { FormikValues, useFormikContext } from 'formik';
 import { IProps } from './FormBuilder';
 import { IFormRow } from './types';
 import { isNA } from '@lib/util';
-import FormItem from './FormItem';
+import { FormItem } from './FormItem';
 import { memo } from 'react';
 
-const FormRow = <V extends FormikValues>(props: IFormRow<V, IProps<V>> & IProps<V>) => {
-  const { values, hiddenWhen, title, subtitle, items } = props || {};
+const FormRowComponent = <V extends FormikValues>(props: IFormRow<V, IProps<V>> & IProps<V>) => {
+  const { hiddenWhen, title, subtitle, items } = props || {};
+
+  const { values } = useFormikContext<V>();
 
   // hide if row is hidden
   const isRowHidden = hiddenWhen?.(values, props);
@@ -25,4 +27,4 @@ const FormRow = <V extends FormikValues>(props: IFormRow<V, IProps<V>> & IProps<
   );
 };
 
-export default memo(FormRow);
+export const FormRow = memo(FormRowComponent);

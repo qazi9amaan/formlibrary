@@ -12,5 +12,6 @@ export { Panel } from './atoms/Panel';
 
 /** ----- molecules ----- */
 export * from './molecules/FormBuilder';
+export * from './molecules/TableBuilder';
 
 /** ----- organism ----- */

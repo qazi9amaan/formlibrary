@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { IModal, ModalContext } from './Context';
+import { IModal, ModalContext } from '../contexts/Modal/Context';
 
 /**
  *  Hook to get the Modal context

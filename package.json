@@ -2,7 +2,7 @@
   "name": "@qazi9amaan/formlibrary",
   "description": "A delightful npm package that provides you with Tailwind CSS styled UI elements 🌟, fully compatible with Formik 📝. Unleash your creativity with a variety of components 🔧 and utilities 🔧 to design stunning dashboards 📊, including tables 📋, forms 📁, and more! Get ready to level up your web projects! 🚀💯",
   "private": false,
-  "version": "0.0.4",
+  "version": "0.0.5",
   "type": "module",
   "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
@@ -51,7 +51,7 @@
   },
   "dependencies": {
     "@tailwindcss/forms": "^0.5.3",
-    "clsx": "^1.2.1",
+    "dayjs": "^1.11.7",
     "formik": "^2.2.9",
     "lodash.get": "^4.4.2",
     "react": "^18.2.0",
@@ -62,6 +62,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.3.0",
     "@commitlint/config-conventional": "^17.6.3",
+    "@types/lodash": "^4.14.194",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
     "@typescript-eslint/eslint-plugin": "^5.57.1",

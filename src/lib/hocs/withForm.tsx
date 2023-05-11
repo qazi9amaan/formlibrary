@@ -1,6 +1,6 @@
-import type { FormikHelpers, FormikProps, FormikValues } from 'formik';
-import { getIn } from 'formik';
+import { Form, FormikHelpers, FormikProps, FormikValues } from 'formik';
 import { Formik } from 'formik';
+import React, { useMemo } from 'react';
 
 /** Formik helpers + { props }*/
 type FormikBag<P, V> = { props: P } & FormikHelpers<V>;
@@ -9,18 +9,13 @@ type FormikBag<P, V> = { props: P } & FormikHelpers<V>;
 export interface IConfig<Props, Values extends FormikValues> {
   initialValues?: Values;
   handleSubmit?: (values: Values, formikBag: FormikBag<Props, Values>) => void;
-  mapPropsToValues?: (props: Props) => Partial<Values> & Record<string, any>;
-  validationSchema?: any;
+  mapPropsToValues?: (props: Props) => Partial<Values> & Record<string, unknown>;
+  validationSchema?: unknown;
   mode?: 'VIEW' | 'EDIT' | 'CREATE' | 'CLONE';
 }
 
-/*** This is the type of props that wrapped Component will receive */
-export type IFormikComponent<V extends FormikValues, P = Record<string, any>> = P &
-  IConfig<P, V> &
-  FormikProps<V>;
-
 /*** This is the type of props that parent Component will have */
-export type IFormikParent<V extends FormikValues, P = Record<string, any>> = P & IConfig<P, V>;
+export type IFormikParent<V extends FormikValues, P = Record<string, unknown>> = P & IConfig<P, V>;
 
 /**
  * A public higher-order component
@@ -30,12 +25,15 @@ export type IFormikParent<V extends FormikValues, P = Record<string, any>> = P &
  * @usage
  * 1. withForm<Values,Props>(config)(Component)
  */
-const withForm = <V extends FormikValues, P = Record<string, any>>(config: IConfig<P, V>) => {
-  return (Component: any) => {
+const withForm = <V extends FormikValues, P = Record<string, unknown>>(config: IConfig<P, V>) => {
+  return (Component: React.ElementType) => {
     //wrapper
     return function WrappedComponent(props: P & IConfig<P, V>) {
       //
-      const initValFromFn = config?.mapPropsToValues?.(props);
+      const initValFromFn = useMemo(
+        () => config?.mapPropsToValues?.(props),
+        [JSON.stringify(props || {})],
+      );
       const initialValues = config?.initialValues || props?.initialValues;
       const validation = config?.validationSchema || props?.validationSchema;
       //
@@ -44,26 +42,18 @@ const withForm = <V extends FormikValues, P = Record<string, any>>(config: IConf
         props?.handleSubmit?.(values, { ...helpers, props } as FormikBag<P, V>);
       };
       //  return component
+
+      const MemoComponent = React.useMemo(() => Component, [Component]);
+
       return (
         <Formik
           initialValues={{ ...initialValues, ...initValFromFn } as V}
           validationSchema={validation}
-          onSubmit={onSubmit as any}
+          onSubmit={onSubmit}
         >
-          {(formikProps: FormikProps<V>) => {
-            const getError = (name: string) => {
-              return (
-                getIn(formikProps.errors, name) &&
-                getIn(formikProps.touched, name) &&
-                getIn(formikProps.errors, name)
-              );
-            };
-            return (
-              <form onSubmit={formikProps.handleSubmit}>
-                <Component {...props} {...formikProps} getError={getError} />
-              </form>
-            );
-          }}
+          <Form>
+            <MemoComponent {...props} />
+          </Form>
         </Formik>
       );
     };

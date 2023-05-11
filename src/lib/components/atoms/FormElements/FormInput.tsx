@@ -1,13 +1,12 @@
+import { useForm } from '@lib/hooks';
 import { IFormikElement } from './FormTypes';
 import { isNA } from '@lib/util';
-import { useFormikContext } from 'formik';
-import { getFormikError } from '@lib/util/helpers/formikHelpers';
 
 export type IFormInput = IFormikElement & { type?: string; uppercase?: boolean };
 
 export const FormInput: React.FC<IFormInput> = (props) => {
   // formik
-  const formik = useFormikContext();
+  const formik = useForm();
 
   /** ----- Handlers----- */
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -17,7 +16,7 @@ export const FormInput: React.FC<IFormInput> = (props) => {
     formik?.handleChange?.(e);
   };
 
-  const formikError = props?.error || getFormikError(formik, props.name);
+  const formikError = props?.error || formik.getError?.(props.name);
   const value = props.value || (formik?.values as any)?.[props?.name] || '';
 
   // ----- Render -----
