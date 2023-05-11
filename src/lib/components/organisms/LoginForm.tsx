@@ -1,17 +1,19 @@
-import { IFormikComponent, withForm } from '@lib/hocs';
+import { withForm } from '@lib/hocs';
 import { Row } from '../atoms/Layouts';
 import { FormInput } from '../atoms/FormElements';
 import { Button } from '../atoms/Button';
 import Panel from '../atoms/Panel';
 import { Header } from '../atoms/Header';
 import * as Yup from 'yup';
+import { useForm } from '@lib/hooks';
 
 type ILogin = {
   username: string;
   password: string;
 };
 
-const LoginWrappedForm: React.FC<IFormikComponent<ILogin>> = ({ isSubmitting }) => {
+const LoginWrappedForm = () => {
+  const { isSubmitting } = useForm<ILogin>();
   return (
     <Panel cs='max-w-lg mx-auto shadow-sm'>
       <Row>

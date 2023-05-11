@@ -1,4 +1,4 @@
-import { Form, FormikHelpers, FormikProps, FormikValues } from 'formik';
+import { Form, FormikHelpers, FormikValues } from 'formik';
 import { Formik } from 'formik';
 import React, { useMemo } from 'react';
 
@@ -9,7 +9,7 @@ type FormikBag<P, V> = { props: P } & FormikHelpers<V>;
 export interface IConfig<Props, Values extends FormikValues> {
   initialValues?: Values;
   handleSubmit?: (values: Values, formikBag: FormikBag<Props, Values>) => void;
-  mapPropsToValues?: (props: Props) => Partial<Values> & Record<string, unknown>;
+  mapPropsToValues?: (props: Props) => Partial<Values> & any;
   validationSchema?: unknown;
   mode?: 'VIEW' | 'EDIT' | 'CREATE' | 'CLONE';
 }
