@@ -24,12 +24,10 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
-    "declaration": true,
     "baseUrl": "src",
     "paths": {
       "@lib/*": ["lib/*"],
-      "@utils/*": ["lib/util/*"],
-      "@/*": ["*"]
+      "@utils/*": ["lib/util/*"]
     }
   },
   "include": ["src", "./index.ts", "vite.config.ts"]

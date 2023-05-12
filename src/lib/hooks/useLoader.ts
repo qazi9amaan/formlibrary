@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { ILoader, LoaderContext } from '../contexts/Loader/Context';
+import { ILoader, LoaderContext } from '../contexts/LoaderContext';
 
 /**
  *  Hook to get the Loader context

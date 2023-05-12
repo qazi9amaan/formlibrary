@@ -50,7 +50,7 @@ const Cell = <T = unknown,>({ currentRow, column }: Props<T>) => {
   };
 
   return (
-    <td className='px-4 py-1 whitespace-nowrap  text-sm ' onClick={handleClick}>
+    <td className='px-4 py-2 whitespace-nowrap  text-sm ' onClick={handleClick}>
       {renderCellContent()}
     </td>
   );

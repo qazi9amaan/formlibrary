@@ -4,6 +4,7 @@ import { FormikBag } from 'formik';
 import { Header } from '@lib/components/atoms/Header';
 import { Row } from '@lib/components/atoms/Layouts';
 import Panel from '@lib/components/atoms/Panel';
+import { MODE } from '@lib/common';
 
 const RegistrationForm = () => {
   //
@@ -17,7 +18,7 @@ const RegistrationForm = () => {
       <Row>
         <Header title='Sign up' subtitle='Lets get started' />
         <FormikBuilder
-          mode='CREATE'
+          mode={MODE.CREATE}
           formJSON={formJSON}
           handleSubmit={handleSubmit}
           initialValues={initialValues}

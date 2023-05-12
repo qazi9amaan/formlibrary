@@ -74,6 +74,12 @@ import { ModalContext, ModalProvider } from '@qazi9amaan/formlibrary';
 // hocs, hooks and utils
 import { useError } from '@qazi9amaan/formlibrary';
 import { withForm } from '@qazi9amaan/formlibrary';
+import { useForm } from '@qazi9amaan/formlibrary'; //<- has custom helpers
+
+// table
+import { Table } from '@qazi9amaan/formlibrary';
+
+
 ```
 
 

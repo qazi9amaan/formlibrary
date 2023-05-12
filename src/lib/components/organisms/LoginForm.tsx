@@ -6,6 +6,7 @@ import Panel from '../atoms/Panel';
 import { Header } from '../atoms/Header';
 import * as Yup from 'yup';
 import { useForm } from '@lib/hooks';
+import { MODE } from '@lib/common';
 
 type ILogin = {
   username: string;
@@ -43,7 +44,7 @@ const LoginForm = withForm<ILogin>({
     username: Yup.string().required('Username is required'),
     password: Yup.string().required('Password is required'),
   }),
-  mode: 'CREATE',
+  mode: MODE.CREATE,
 })(LoginWrappedForm);
 
 export { LoginForm };

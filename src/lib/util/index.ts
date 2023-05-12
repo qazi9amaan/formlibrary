@@ -1,1 +1,2 @@
-export { isNA } from './helpers/isNA';
+export * from './helpers/isNA';
+export * from './helpers/tailwindClass';

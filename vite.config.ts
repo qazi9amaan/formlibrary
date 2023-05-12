@@ -26,6 +26,11 @@ export default defineConfig({
     sourcemap: true,
     emptyOutDir: true,
   },
+  css: {
+    postcss: {
+      plugins: [tailwindcss],
+    },
+  },
   plugins: [
     react(),
     tsconfigPaths(),
@@ -34,9 +39,10 @@ export default defineConfig({
       tsConfigFilePath: './tsconfig.json',
     }),
   ],
-  css: {
-    postcss: {
-      plugins: [tailwindcss],
+  resolve: {
+    alias: {
+      '@lib': path.resolve(__dirname, './src/lib/'),
+      '@utils': path.resolve(__dirname, './src/lib/util/'),
     },
   },
 });

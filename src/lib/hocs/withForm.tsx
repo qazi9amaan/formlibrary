@@ -1,21 +1,22 @@
 import { Form, FormikHelpers, FormikValues } from 'formik';
 import { Formik } from 'formik';
 import React, { useMemo } from 'react';
+import { MODE } from '@lib/common';
 
 /** Formik helpers + { props }*/
 type FormikBag<P, V> = { props: P } & FormikHelpers<V>;
 
 /*** withFormik() configuration options.*/
-export interface IConfig<Props, Values extends FormikValues> {
+export interface IConfig<Values extends FormikValues, Props> {
   initialValues?: Values;
   handleSubmit?: (values: Values, formikBag: FormikBag<Props, Values>) => void;
   mapPropsToValues?: (props: Props) => Partial<Values> & any;
   validationSchema?: unknown;
-  mode?: 'VIEW' | 'EDIT' | 'CREATE' | 'CLONE';
+  mode?: MODE;
 }
 
 /*** This is the type of props that parent Component will have */
-export type IFormikParent<V extends FormikValues, P = Record<string, unknown>> = P & IConfig<P, V>;
+export type IFormikParent<V extends FormikValues, P = Record<string, unknown>> = P & IConfig<V, P>;
 
 /**
  * A public higher-order component
@@ -25,17 +26,17 @@ export type IFormikParent<V extends FormikValues, P = Record<string, unknown>> =
  * @usage
  * 1. withForm<Values,Props>(config)(Component)
  */
-const withForm = <V extends FormikValues, P = Record<string, unknown>>(config: IConfig<P, V>) => {
+const withForm = <V extends FormikValues, P = Record<string, unknown>>(config: IConfig<V, P>) => {
   return (Component: React.ElementType) => {
     //wrapper
-    return function WrappedComponent(props: P & IConfig<P, V>) {
+    return function WrappedComponent(props: P & IConfig<V, P>) {
       //
       const initValFromFn = useMemo(
         () => config?.mapPropsToValues?.(props),
         [JSON.stringify(props || {})],
       );
-      const initialValues = config?.initialValues || props?.initialValues;
-      const validation = config?.validationSchema || props?.validationSchema;
+      const initialValues = props?.initialValues || config?.initialValues;
+      const validation = props?.validationSchema || config?.validationSchema;
       //
       const onSubmit = (values: V, helpers?: FormikHelpers<V>) => {
         config?.handleSubmit?.(values, { ...helpers, props } as FormikBag<P, V>);
