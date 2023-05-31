@@ -33,18 +33,21 @@ const LoginWrappedForm = () => {
 };
 
 const LoginForm = withForm<ILogin>({
-  initialValues: {
-    username: '',
-    password: '',
-  },
-  mapPropsToValues: (props) => {
-    return { username: props.hello };
-  },
   validationSchema: Yup.object().shape({
     username: Yup.string().required('Username is required'),
     password: Yup.string().required('Password is required'),
   }),
-  mode: MODE.CREATE,
+  disabler: (key, values, mode) => {
+    if (mode === MODE.VIEW) return true;
+    switch (key) {
+      case 'username':
+        return false;
+      case 'password':
+        return !!values?.username;
+      default:
+        return false;
+    }
+  },
 })(LoginWrappedForm);
 
 export { LoginForm };
