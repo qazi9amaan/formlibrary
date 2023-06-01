@@ -13,5 +13,6 @@ export * from './atoms/Panel';
 /** ----- molecules ----- */
 export * from './molecules/FormBuilder';
 export * from './molecules/TableBuilder';
+export * from './molecules/SideNav';
 
 /** ----- organism ----- */
