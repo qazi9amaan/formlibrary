@@ -15,7 +15,7 @@ export const Column: React.FC<Props> = (props) => {
   /** ---- render ---- */
   return (
     <section
-      className={`flex flex-row items-end ${className}`}
+      className={`flex flex-col ${className}`}
       style={{
         minWidth: `${width}%`,
         maxWidth: `${width}%`,

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useMemo, memo } from 'react';
+import React from 'react';
 import { Form, FormikHelpers, FormikProvider, FormikValues, useFormik } from 'formik';
 import { MODE } from '@lib/common';
 
@@ -11,7 +11,6 @@ export const withForm =
     const FormikWrapper: React.FC<IFormikProps<V, P>> = (props) => {
       const { validationSchema, disabler } = config;
       const { initialValues, mode = MODE.CREATE, handleSubmit, ...rest } = props;
-      const MemoComponent = useMemo(() => Component, []);
 
       const formik = useFormik({
         initialValues,
@@ -23,13 +22,13 @@ export const withForm =
       return (
         <FormikProvider value={{ ...formik, disabler, mode } as any}>
           <Form>
-            <MemoComponent {...rest} />
+            <Component {...rest} />
           </Form>
         </FormikProvider>
       );
     };
 
-    return memo(FormikWrapper);
+    return FormikWrapper;
   };
 
 type FormikBag<P, V> = { props: P } & FormikHelpers<V>;
