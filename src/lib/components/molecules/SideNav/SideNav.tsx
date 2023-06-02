@@ -25,7 +25,7 @@ const SideNav: React.FC<Props> = ({ navs, showLogout, onLogout, appLogo, pathNam
   return (
     <>
       {/* HEADER */}
-      <header className='items-center flex px-2 py-4 sm:!hidden border-b top-0 sticky left-0'>
+      <header className='items-center bg-white z-50 flex px-2 py-4 sm:!hidden border-b top-0 sticky left-0'>
         <button
           type='button'
           onClick={handleToggleMenu}

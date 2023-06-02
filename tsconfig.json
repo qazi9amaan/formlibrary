@@ -30,5 +30,5 @@
       "@utils/*": ["lib/util/*"]
     }
   },
-  "include": ["src", "./index.ts", "vite.config.ts"]
+  "include": ["src", "./index.ts", "vite.config.ts", "src/lib/components/atoms/FormTitle.tsx"]
 }

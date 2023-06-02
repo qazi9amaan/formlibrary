@@ -9,7 +9,7 @@ export * from './atoms/Header';
 export * from './atoms/Loader';
 export * from './atoms/Modal';
 export * from './atoms/Panel';
-export * from './atoms/FormTitle';
+export * from './atoms/FormHeader';
 
 /** ----- molecules ----- */
 export * from './molecules/FormBuilder';
