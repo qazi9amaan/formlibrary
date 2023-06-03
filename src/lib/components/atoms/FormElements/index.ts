@@ -9,3 +9,4 @@ export * from './FormCheckbox';
 export * from './FormRadio';
 export * from './FormChips';
 export * from './FormTextarea';
+export * from './FormArray';
