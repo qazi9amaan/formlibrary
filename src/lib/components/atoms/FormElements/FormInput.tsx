@@ -1,6 +1,7 @@
 import { useForm } from '@lib/hooks';
 import { IFormikElement } from './FormTypes';
 import { isNA } from '@lib/util';
+import { getIn } from 'formik';
 
 export type IFormInput = IFormikElement & { type?: string; uppercase?: boolean };
 
@@ -17,7 +18,7 @@ export const FormInput: React.FC<IFormInput> = (props) => {
   };
 
   const formikError = props?.error || formik.getError?.(props.name);
-  const value = props.value || (formik?.values as any)?.[props?.name] || '';
+  const value = props.value || getIn(formik?.values, props.name);
 
   // ----- Render -----
   return (

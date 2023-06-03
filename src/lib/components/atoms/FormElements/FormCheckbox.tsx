@@ -1,6 +1,7 @@
 import { IFormikElement } from './FormTypes';
 import { isNA } from '@lib/util';
 import { useForm } from '@lib/hooks';
+import { getIn } from 'formik';
 
 export type ICheckBoxOption = {
   label: string;
@@ -31,11 +32,11 @@ export const FormCheckbox = (props: IFormCheckBox) => {
   } = props;
 
   // formik
-  const formik = useForm<any>();
-  const { values: formikValues, handleBlur: formikHandleBlur } = formik || {};
+  const formik = useForm();
+  const { values, handleBlur: formikHandleBlur } = formik || {};
 
-  const finalValue = value || formikValues?.[name] || [];
-  const formikError = error || formik.getError?.(props.name);
+  const finalValue = value || getIn(values, name) || [];
+  const formikError = error || formik.getError?.(name);
 
   /** ----- Handlers----- */
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

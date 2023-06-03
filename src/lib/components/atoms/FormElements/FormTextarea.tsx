@@ -1,6 +1,7 @@
 import { useForm } from '@lib/hooks';
 import { IFormikElement } from './FormTypes';
 import { isNA } from '@lib/util';
+import { getIn } from 'formik';
 
 export type IFormTextarea = IFormikElement & {
   rows?: number;
@@ -18,7 +19,7 @@ export const FormTextarea: React.FC<IFormTextarea> = (props) => {
   };
 
   const formikError = props?.error || formik?.getError?.(props.name);
-  const value = props.value || (formik?.values as any)?.[props?.name] || '';
+  const value = props.value || getIn(formik?.values, props.name) || '';
 
   // ----- Render -----
   return (

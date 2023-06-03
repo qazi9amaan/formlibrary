@@ -2,6 +2,7 @@ import { IFormikElement } from './FormTypes';
 import { isNA } from '@lib/util';
 import { AutoLayout } from '@lib/components/atoms/Layouts/AutoLayout';
 import { useForm } from '@lib/hooks';
+import { getIn } from 'formik';
 
 type ICheckBoxOption = {
   label: string;
@@ -31,10 +32,10 @@ export const FormChips = (props: IFormChips) => {
   } = props;
 
   // formik
-  const formik = useForm<any>();
-  const { values: formikValues, handleBlur: formikHandleBlur } = formik || {};
+  const formik = useForm();
+  const { values, handleBlur: formikHandleBlur } = formik || {};
 
-  const finalValue = value || formikValues?.[name] || [];
+  const finalValue = value || getIn(values, name) || [];
   const formikError = error || formik.getError?.(name);
 
   /** ----- Handlers----- */

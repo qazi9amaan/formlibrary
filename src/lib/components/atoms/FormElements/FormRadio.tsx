@@ -3,6 +3,7 @@ import { IFormikElement } from './FormTypes';
 import { isNA } from '@lib/util';
 import { AutoLayout } from '@lib/components/atoms/Layouts/AutoLayout';
 import { useForm } from '@lib/hooks';
+import { getIn } from 'formik';
 
 export type IRadioOption = {
   label: string;
@@ -27,7 +28,7 @@ export const FormRadio: React.FC<FormRadio> = (props) => {
   };
 
   const formikError = props?.error || formik?.getError?.(props.name);
-  const value = props.value || (formik?.values as any)?.[props?.name] || '';
+  const value = props.value || getIn(formik?.values, props.name) || '';
 
   return (
     <div className='form--input'>

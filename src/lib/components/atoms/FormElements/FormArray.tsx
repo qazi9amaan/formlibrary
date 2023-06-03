@@ -2,13 +2,13 @@ import { FieldArray } from 'formik';
 
 type IRenderProps = {
   baseName: string;
-  value: Record<string, any>;
+  value: any;
   index: number;
   push: (obj: any) => void;
   remove: (index: number) => void;
 };
 
-type Props<T = Record<string, any>> = {
+type Props<T = any[]> = {
   name: string;
   values: T[];
   render: (props: IRenderProps) => JSX.Element;
