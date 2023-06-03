@@ -19,6 +19,7 @@ export const FormInput: React.FC<IFormInput> = (props) => {
 
   const formikError = props?.error || formik.getError?.(props.name);
   const value = props.value || getIn(formik?.values, props.name);
+  const disabled = props.disabled || formik?.getDisabled?.(props.name);
 
   // ----- Render -----
   return (
@@ -34,7 +35,7 @@ export const FormInput: React.FC<IFormInput> = (props) => {
           name={props.name}
           onChange={handleChange}
           type={props.type || 'text'}
-          disabled={props.disabled}
+          disabled={disabled}
           placeholder={props.placeholder}
           onBlur={props?.handleBlur || formik?.handleBlur}
           className={`form--input-field ${!isNA(formikError) && 'form--error'}`}

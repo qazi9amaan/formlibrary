@@ -20,6 +20,7 @@ export const FormTextarea: React.FC<IFormTextarea> = (props) => {
 
   const formikError = props?.error || formik?.getError?.(props.name);
   const value = props.value || getIn(formik?.values, props.name) || '';
+  const disabled = props.disabled || formik?.getDisabled?.(props.name);
 
   // ----- Render -----
   return (
@@ -35,7 +36,7 @@ export const FormTextarea: React.FC<IFormTextarea> = (props) => {
           id={props.name}
           name={props.name}
           onChange={handleChange}
-          disabled={props.disabled}
+          disabled={disabled}
           placeholder={props.placeholder}
           onBlur={props?.handleBlur || formik?.handleBlur}
           className={`form--input-field ${!isNA(formikError) && 'form--error'}`}

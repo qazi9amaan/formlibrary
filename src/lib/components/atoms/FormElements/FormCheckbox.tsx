@@ -18,18 +18,8 @@ export type IFormCheckBox = IFormikElement & {
 
 export const FormCheckbox = (props: IFormCheckBox) => {
   // props
-  const {
-    name,
-    value,
-    error,
-    horizontalOnSm,
-    label,
-    required,
-    options,
-    placeholder,
-    disabled,
-    handleBlur,
-  } = props;
+  const { name, value, error, horizontalOnSm, label, required, options, placeholder, handleBlur } =
+    props;
 
   // formik
   const formik = useForm();
@@ -37,6 +27,7 @@ export const FormCheckbox = (props: IFormCheckBox) => {
 
   const finalValue = value || getIn(values, name) || [];
   const formikError = error || formik.getError?.(name);
+  const disabled = props.disabled || formik?.getDisabled?.(props.name);
 
   /** ----- Handlers----- */
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

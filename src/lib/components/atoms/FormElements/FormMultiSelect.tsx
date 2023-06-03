@@ -23,6 +23,8 @@ export const FormMultiSelect = (props: IFormMultiSelect) => {
     formik?.setFieldValue?.(props.name, selectedOptions);
   };
 
+  const disabled = props.disabled || formik?.getDisabled?.(props.name);
+
   return (
     <div className='form--input'>
       <label htmlFor={props.name} className='form--input-wrapper'>
@@ -37,7 +39,7 @@ export const FormMultiSelect = (props: IFormMultiSelect) => {
           id={props.name}
           name={props.name}
           onChange={handleChange}
-          disabled={props?.disabled}
+          disabled={disabled}
           onBlur={props?.handleBlur || formik?.handleBlur}
           className={`form--input-field form-select ${!isNA(formikError) && 'form--error'}`}
         >

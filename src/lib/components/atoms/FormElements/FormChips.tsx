@@ -18,18 +18,7 @@ export type IFormChips = IFormikElement & {
 
 export const FormChips = (props: IFormChips) => {
   // props
-  const {
-    name,
-    value,
-    error,
-    label,
-    required,
-    subLabel,
-    options,
-    placeholder,
-    disabled,
-    handleBlur,
-  } = props;
+  const { name, value, error, label, required, subLabel, options, placeholder, handleBlur } = props;
 
   // formik
   const formik = useForm();
@@ -54,6 +43,8 @@ export const FormChips = (props: IFormChips) => {
     setFieldValue?.(name, uncheckedValue);
     formik?.setFieldValue?.(name, uncheckedValue);
   };
+
+  const disabled = props.disabled || formik?.getDisabled?.(props.name);
 
   return (
     <div className='form--input'>

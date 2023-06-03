@@ -22,6 +22,7 @@ export const FormDate: React.FC<IFormDate> = (props) => {
 
   const formikError = props?.error || formik.getError?.(props.name);
   const value = props?.value || getIn(formik?.values, props.name) || new Date();
+  const disabled = props.disabled || formik?.getDisabled?.(props.name);
 
   const minDate = props?.minToday ? new Date() : props?.minDate;
 
@@ -41,7 +42,7 @@ export const FormDate: React.FC<IFormDate> = (props) => {
           id={props.name}
           name={props.name}
           onChange={handleChange}
-          disabled={props.disabled}
+          disabled={disabled}
           placeholder={props.placeholder}
           onBlur={props?.handleBlur || formik?.handleBlur}
           className={`form--input-field ${!isNA(formikError) && 'form--error'}`}

@@ -29,6 +29,7 @@ export const FormRadio: React.FC<FormRadio> = (props) => {
 
   const formikError = props?.error || formik?.getError?.(props.name);
   const value = props.value || getIn(formik?.values, props.name) || '';
+  const disabled = props.disabled || formik?.getDisabled?.(props.name);
 
   return (
     <div className='form--input'>
@@ -52,7 +53,7 @@ export const FormRadio: React.FC<FormRadio> = (props) => {
                   className='peer hidden'
                   onChange={handleChange}
                   id={`${option.value}-${option.label}`}
-                  disabled={option.disabled || props.disabled}
+                  disabled={option.disabled || disabled}
                   placeholder={props.placeholder}
                   checked={value === option.value}
                   onBlur={props?.handleBlur || formik?.handleBlur}
