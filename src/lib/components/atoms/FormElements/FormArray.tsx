@@ -14,7 +14,7 @@ type Props<T = Record<string, any>> = {
   render: (props: IRenderProps) => JSX.Element;
 };
 
-const FormArray = ({ name, values, render }: Props) => {
+export const FormArray = ({ name, values, render }: Props) => {
   return (
     <FieldArray
       name={name}
@@ -29,5 +29,3 @@ const FormArray = ({ name, values, render }: Props) => {
     />
   );
 };
-
-export default FormArray;
