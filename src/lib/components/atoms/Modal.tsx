@@ -20,6 +20,7 @@ export interface IModalOptions {
 
   hideBorder?: boolean;
   noSpacing?: boolean;
+  showFullPage?: boolean;
 }
 
 export type IModalProps = {
@@ -46,6 +47,7 @@ export const Modal: React.FC<IModalProps> = (props) => {
     actionConfirm,
     hideBorder,
     noSpacing,
+    showFullPage = false,
   } = options;
 
   const handleClose = () => {
@@ -77,7 +79,14 @@ export const Modal: React.FC<IModalProps> = (props) => {
           <FaTimes onClick={closeModal} className='dailog-modal--icon ' />
         </header>
       )}
-      <main className='dailog-modal--body overflow-auto '>{body}</main>
+
+      <main
+        className={`dailog-modal--body overflow-auto ${
+          showFullPage && 'dailog-modal--body--full-page'
+        }`}
+      >
+        {body}
+      </main>
       {!hideFooter && (
         <footer className={`dailog-modal--footer ${hideBorder && ' !border-0'}`}>
           {!hideCancel && (

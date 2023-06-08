@@ -101,15 +101,16 @@
 /*--------------- radio-btn ---------- */
 
 .form--radio-btn {
-  @apply flex items-center cursor-pointer border border-gray-100 text-gray-400 hover:opacity-80 font-medium py-2 md:py-1 px-3 pr-4 rounded-md md:rounded-lg transition duration-300 relative;
+  @apply flex items-center cursor-pointer border border-gray-100 text-gray-400;
+  @apply hover:opacity-80 font-medium py-2 md:py-1 px-3 pr-4 rounded-md md:rounded-lg transition duration-300 relative;
   @apply peer-checked:border-blue-700 peer-checked:text-blue-700;
-  @apply peer-disabled:text-gray-400 peer-disabled:bg-gray-100 peer-disabled:border-gray-100 peer-disabled:hover:opacity-100 peer-disabled:peer-checked:border-gray-100;
+  @apply peer-disabled:peer-checked:bg-blue-100 peer-disabled:peer-checked:text-blue-700 peer-disabled:peer-checked:border-blue-700;
 }
 
 .form--radio-btn .circle {
   @apply p-[.4em] border-gray-400 border rounded-full inline-block  transition duration-300 mr-[.5em];
   @apply peer-checked:bg-blue-700 peer-checked:border-white;
-  @apply peer-disabled:border-gray-400 peer-disabled:peer-checked:bg-gray-400 peer-disabled:peer-checked:border-gray-100;
+  @apply peer-disabled:peer-checked:bg-blue-700 peer-disabled:peer-checked:border-blue-700;
 }
 
 .form--radio-btn-label {
@@ -118,7 +119,6 @@
 
 .form--radio-btn--error {
   @apply peer-checked:bg-red-50 peer-checked:text-red-600 peer-checked:border-red-500;
-  @apply peer-disabled:text-gray-400 peer-disabled:bg-gray-100  peer-disabled:hover:opacity-100;
 }
 
 .form--radio-btn--error .circle {
@@ -142,6 +142,7 @@
 }
 .form--chip {
   @apply peer-disabled:bg-gray-50 peer-disabled:text-gray-400 peer-disabled:border-gray-200;
+  @apply peer-disabled:peer-checked:bg-blue-100 peer-disabled:peer-checked:text-blue-600 peer-disabled:peer-checked:border-blue-600;
 }
 
 /** ---------- Button ---------- */
@@ -258,6 +259,9 @@
   margin-top: 0.5rem;
   max-height: 300px;
   overflow-y: auto;
+}
+.dailog-modal--body--full-page {
+  max-height: 90vh !important;
 }
 
 .dailog-modal--nospacing > .dailog-modal--body {
