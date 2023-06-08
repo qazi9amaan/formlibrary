@@ -261,7 +261,7 @@
   overflow-y: auto;
 }
 .dailog-modal--body--full-page {
-  max-height: 90vh !important;
+  max-height: 75vh !important;
 }
 
 .dailog-modal--nospacing > .dailog-modal--body {
