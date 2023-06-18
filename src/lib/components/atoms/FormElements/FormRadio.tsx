@@ -44,29 +44,33 @@ export const FormRadio: React.FC<FormRadio> = (props) => {
 
         <div>
           <AutoLayout p='' rowGap={0.5}>
-            {props.options.map((option: IRadioOption, i: number) => (
-              <div key={i} className='w-full sm:flex-1 sm:w-auto md:flex-none  '>
-                <input
-                  type='radio'
-                  value={option.value}
-                  name={props.name}
-                  className='peer hidden'
-                  onChange={handleChange}
-                  id={`${option.value}-${option.label}`}
-                  disabled={option.disabled || disabled}
-                  placeholder={props.placeholder}
-                  checked={value === option.value}
-                  onBlur={props?.handleBlur || formik?.handleBlur}
-                />
-                <label
-                  htmlFor={`${option.value}-${option.label}`}
-                  className={`form--radio-btn ${!isNA(formikError) && 'form--radio-btn--error'}`}
-                >
-                  <span className='circle'></span>
-                  {option.label}
-                </label>
-              </div>
-            ))}
+            {props.options.map((option: IRadioOption, i: number) => {
+              const key = `${props.name}/${option.value}/${i}`;
+
+              return (
+                <div key={key} className='w-full sm:flex-1 sm:w-auto md:flex-none  '>
+                  <input
+                    type='radio'
+                    value={option.value}
+                    name={props.name}
+                    className='peer hidden'
+                    onChange={handleChange}
+                    id={key}
+                    disabled={option.disabled || disabled}
+                    placeholder={props.placeholder}
+                    checked={value === option.value}
+                    onBlur={props?.handleBlur || formik?.handleBlur}
+                  />
+                  <label
+                    htmlFor={key}
+                    className={`form--radio-btn ${!isNA(formikError) && 'form--radio-btn--error'}`}
+                  >
+                    <span className='circle'></span>
+                    {option.label}
+                  </label>
+                </div>
+              );
+            })}
           </AutoLayout>
 
           {formikError && <span className='form--error-text'>{formikError}</span>}

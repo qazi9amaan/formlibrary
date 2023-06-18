@@ -19,14 +19,15 @@ export const TableBody = <T = unknown,>() => {
       )}
       {rows?.map((row: T, i) => {
         const idKeyValue = get(row, idKey);
+        const key = `${idKeyValue}/${i}`; // map rows
         // map columns
         return (
           <tr
-            key={`${idKeyValue}/${i}`}
+            key={key}
             className='transition-all ease-in-out duration-500 border-t border-gray-100 '
           >
             {/* SelectBox */}
-            {showSelect && <SelectCell key={`${idKeyValue}/select`} idKeyValue={idKeyValue} />}
+            {showSelect && <SelectCell key={`${key}/select`} idKeyValue={idKeyValue} />}
             {/*  */}
 
             {columns?.map((column: ITableCellHeader<T>) => {
@@ -34,18 +35,14 @@ export const TableBody = <T = unknown,>() => {
               if (column.type === 'actions')
                 return (
                   <ActionCell
-                    key={`${idKeyValue}/action`}
+                    key={`${key}/action`}
                     currentRow={row}
                     actions={column?.actions as IAction<unknown>[]}
                   />
                 );
               // in case of value column
               return (
-                <ValueCell
-                  key={`${idKeyValue}/${column.key}`}
-                  currentRow={row}
-                  column={column as any}
-                />
+                <ValueCell key={`${key}/${column.key}`} currentRow={row} column={column as any} />
               );
             })}
           </tr>

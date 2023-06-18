@@ -18,37 +18,46 @@ export type IFormChips = IFormikElement & {
 
 export const FormChips = (props: IFormChips) => {
   // props
-  const { name, value, error, label, required, subLabel, options, placeholder, handleBlur } = props;
+  const {
+    name: fieldName,
+    value,
+    error,
+    label,
+    required,
+    subLabel,
+    options,
+    placeholder,
+    handleBlur,
+  } = props;
 
   // formik
   const formik = useForm();
   const { values, handleBlur: formikHandleBlur } = formik || {};
 
-  const finalValue = value || getIn(values, name) || [];
-  const formikError = error || formik.getError?.(name);
+  const finalValue = value || getIn(values, fieldName) || [];
+  const formikError = error || formik.getError?.(fieldName);
 
   /** ----- Handlers----- */
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCustomChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     //
-    const { checked, value: optValue } = e.target;
-    const { name, setFieldValue } = props;
+    const { checked, value: optValue, name } = e.target;
 
     if (checked) {
-      setFieldValue?.(name, [...finalValue, optValue]);
+      props?.setFieldValue?.(name, [...finalValue, optValue]);
       formik?.setFieldValue?.(name, [...finalValue, optValue]);
       return;
     }
 
     const uncheckedValue = finalValue.filter((v: string) => v !== optValue);
-    setFieldValue?.(name, uncheckedValue);
+    props?.setFieldValue?.(name, uncheckedValue);
     formik?.setFieldValue?.(name, uncheckedValue);
   };
 
-  const disabled = props.disabled || formik?.getDisabled?.(props.name);
+  const disabled = props.disabled || formik?.getDisabled?.(fieldName);
 
   return (
     <div className='form--input'>
-      <label htmlFor={name} className={`form--input-wrapper`}>
+      <label htmlFor={fieldName} className={`form--input-wrapper`}>
         <div className={`form--label !mb-2 ${!isNA(formikError) && 'form--label-error'}`}>
           <p className='!mb-0 leading-tight'>
             {label}
@@ -60,16 +69,18 @@ export const FormChips = (props: IFormChips) => {
         </div>
 
         <AutoLayout p='0'>
-          {options.map((option: ICheckBoxOption) => {
+          {options?.map((option: ICheckBoxOption, index: number) => {
+            const key = `${fieldName}/${option.value}/${index}`;
+
             return (
-              <div key={`${option.value}-${option.label}`} className='sm:flex-none'>
+              <div key={key} className='sm:flex-none'>
                 <input
                   type='checkbox'
                   value={option.value}
-                  name={name}
+                  name={fieldName}
                   className='peer hidden'
-                  onChange={handleChange}
-                  id={`${option.value}-${option.label}`}
+                  onChange={handleCustomChange}
+                  id={key}
                   disabled={option.disabled || disabled}
                   placeholder={placeholder}
                   checked={finalValue.includes(option.value)}
@@ -77,7 +88,7 @@ export const FormChips = (props: IFormChips) => {
                 />
                 <label
                   className={`form--chip ${!isNA(formikError) && 'form--chip--error'}`}
-                  htmlFor={`${option.value}-${option.label}`}
+                  htmlFor={key}
                 >
                   <span>{option.label}</span>
                 </label>

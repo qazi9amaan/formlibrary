@@ -62,12 +62,14 @@ export const FormCheckbox = (props: IFormCheckBox) => {
                 : 'sm:space-y-0 sm:!flex-row flex items-baseline'
             }`}
           >
-            {options.map((option: ICheckBoxOption) => {
+            {options.map((option: ICheckBoxOption, index: number) => {
               const hasSubtitle = isNA(option.subLabel);
+              const key = `${name}/${option.value}/${index}`;
+
               return (
                 <div
                   style={{ alignItems: !hasSubtitle ? 'flex-start' : 'center' }}
-                  key={`${option.value}-${option.label}`}
+                  key={key}
                   className={`form--check-box ${!isNA(formikError) && 'form--check-box--error'}`}
                 >
                   <input
@@ -75,7 +77,7 @@ export const FormCheckbox = (props: IFormCheckBox) => {
                     value={option.value}
                     name={name}
                     onChange={handleChange}
-                    id={`${option.value}-${option.label}`}
+                    id={key}
                     disabled={option.disabled || disabled}
                     placeholder={placeholder}
                     checked={finalValue.includes(option.value)}
@@ -84,7 +86,7 @@ export const FormCheckbox = (props: IFormCheckBox) => {
                   <label
                     className='form--check-box-text'
                     style={{ marginTop: !hasSubtitle ? '-.3em' : '0' }}
-                    htmlFor={`${option.value}-${option.label}`}
+                    htmlFor={key}
                   >
                     <span>{option.label}</span>
                     {!hasSubtitle && <span className='sub-label'>{option.subLabel}</span>}

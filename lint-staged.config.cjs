@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-undef
 module.exports = {
-  '*.{ts,tsx}': ['eslint --fix ', 'prettier --write'],
-  '*.json': ['prettier --write'],
+  '*.{js,jsx,ts,tsx}': ['yarn lint:fix', 'git add'],
+  '*.{js,jsx,ts,tsx,json,md}': ['yarn format', 'git add'],
 };
