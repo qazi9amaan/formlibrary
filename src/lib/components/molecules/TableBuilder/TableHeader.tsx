@@ -37,8 +37,12 @@ export const TableHeader = () => {
         {/* SelectBox */}
         {showSelect && <AllSelectCell />}
         {/* columns  */}
-        {columns?.map((item: ITableCellHeader) => (
-          <TableHeaderCell key={item.label} {...item} colKey={item.key as string} />
+        {columns?.map((item: ITableCellHeader, i) => (
+          <TableHeaderCell
+            key={`${item?.label}/${item.key}/${i}`}
+            {...item}
+            colKey={item.key as string}
+          />
         ))}
       </tr>
     </thead>

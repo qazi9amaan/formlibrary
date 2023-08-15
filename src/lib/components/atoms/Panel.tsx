@@ -5,13 +5,21 @@ type Props = {
   children: React.ReactNode;
   header?: string;
   collapsible?: boolean;
+  isCollapsed?: boolean;
   p?: string; // { top, right, bottom, left}
   cs?: string;
 };
 
 export const Panel = (props: Props) => {
-  const { children, p = '.5em 0 .5em 0', collapsible = false, header, cs = '' } = props;
-  const [isCollapsed, setIsCollapsed] = React.useState(collapsible);
+  const {
+    children,
+    p = '.5em 0 .5em 0',
+    collapsible = false,
+    header,
+    cs = '',
+    isCollapsed: defaultCollapsed,
+  } = props;
+  const [isCollapsed, setIsCollapsed] = React.useState(defaultCollapsed);
 
   return (
     <div

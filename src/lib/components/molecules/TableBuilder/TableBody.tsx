@@ -30,19 +30,23 @@ export const TableBody = <T = unknown,>() => {
             {showSelect && <SelectCell key={`${key}/select`} idKeyValue={idKeyValue} />}
             {/*  */}
 
-            {columns?.map((column: ITableCellHeader<T>) => {
+            {columns?.map((column: ITableCellHeader<T>, index: number) => {
               // in case of actions column
               if (column.type === 'actions')
                 return (
                   <ActionCell
-                    key={`${key}/action`}
+                    key={`${key}/${index}/action`}
                     currentRow={row}
                     actions={column?.actions as IAction<unknown>[]}
                   />
                 );
               // in case of value column
               return (
-                <ValueCell key={`${key}/${column.key}`} currentRow={row} column={column as any} />
+                <ValueCell
+                  key={`/${key}/${column.key}/${index}`}
+                  currentRow={row}
+                  column={column as any}
+                />
               );
             })}
           </tr>

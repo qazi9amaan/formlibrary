@@ -18,7 +18,7 @@ const Cell = <T = unknown,>({ currentRow, column }: Props<T>) => {
   const { handleCellClick } = useTableContext<T>();
 
   const _value = get(currentRow, column.key as string);
-  const value = column?.extract ? column?.extract?.(_value) : _value;
+  const value = column?.extract ? column?.extract?.(currentRow) : _value;
 
   const handleClick = () => {
     if (['button', 'link'].includes(column.type))

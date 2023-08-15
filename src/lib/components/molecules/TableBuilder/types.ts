@@ -25,7 +25,7 @@ export type ITableCellHeader<V = any> = {
   type?: ICellType;
   label: string;
   sortable?: boolean;
-  extract?: (value: any) => any;
+  extract?: (row: V) => any;
 } & (
   | { type: 'actions'; key?: string; actions: IAction<V>[] }
   | { type: 'badge'; key: string; badges: IBadgeColors }
