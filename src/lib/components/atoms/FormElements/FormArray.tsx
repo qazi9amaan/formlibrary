@@ -18,7 +18,7 @@ export const FormArray = ({ name, values, render }: Props) => {
   return (
     <FieldArray
       name={name}
-      render={({ push, remove }) => (
+      render={({ push, remove }: any) => (
         <>
           {values.map((value, index) => {
             const baseName = `${name}[${index}]`;

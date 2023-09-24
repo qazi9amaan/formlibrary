@@ -15,7 +15,7 @@ export const SelectCell = <T = unknown,>({ idKeyValue }: ISelectBoxProps) => {
   };
 
   return (
-    <td className='!px-3 !shrink-0  text-left'>
+    <td className='text-center'>
       <label className='sr-only' htmlFor={idKeyValue}>
         Select
       </label>

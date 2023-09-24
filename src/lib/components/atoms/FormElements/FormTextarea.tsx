@@ -2,6 +2,7 @@ import { useForm } from '@lib/hooks';
 import { IFormikElement } from './FormTypes';
 import { isNA } from '@lib/util';
 import { getIn } from 'formik';
+import valueConverter from '@lib/util/helpers/valueConverter';
 
 export type IFormTextarea = IFormikElement & {
   rows?: number;
@@ -14,6 +15,7 @@ export const FormTextarea: React.FC<IFormTextarea> = (props) => {
 
   /** ----- Handlers----- */
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    e.target.value = valueConverter(e.target.value, props?.convertOptions);
     props?.handleChange?.(e);
     formik?.handleChange?.(e);
   };

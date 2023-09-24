@@ -1,3 +1,5 @@
+import { IConvertOptions } from '@lib/util/helpers/valueConverter';
+
 export interface IFormikElement {
   //required
   name: string;
@@ -18,6 +20,8 @@ export interface IFormikElement {
   disabled?: boolean;
   required?: boolean;
   placeholder?: string;
+
+  convertOptions?: IConvertOptions;
 }
 
 export type IFormOption = {

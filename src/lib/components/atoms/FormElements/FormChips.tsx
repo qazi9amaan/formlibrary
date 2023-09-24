@@ -3,6 +3,7 @@ import { isNA } from '@lib/util';
 import { AutoLayout } from '@lib/components/atoms/Layouts/AutoLayout';
 import { useForm } from '@lib/hooks';
 import { getIn } from 'formik';
+import valueConverter from '@lib/util/helpers/valueConverter';
 
 type ICheckBoxOption = {
   label: string;
@@ -40,7 +41,8 @@ export const FormChips = (props: IFormChips) => {
   /** ----- Handlers----- */
   const handleCustomChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     //
-    const { checked, value: optValue, name } = e.target;
+    const { checked, value, name } = e.target;
+    const optValue = valueConverter(value, props?.convertOptions);
 
     if (checked) {
       props?.setFieldValue?.(name, [...finalValue, optValue]);

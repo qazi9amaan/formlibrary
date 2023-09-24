@@ -4,6 +4,7 @@ import { isNA } from '@lib/util';
 import { AutoLayout } from '@lib/components/atoms/Layouts/AutoLayout';
 import { useForm } from '@lib/hooks';
 import { getIn } from 'formik';
+import valueConverter from '@lib/util/helpers/valueConverter';
 
 export type IRadioOption = {
   label: string;
@@ -23,12 +24,13 @@ export const FormRadio: React.FC<FormRadio> = (props) => {
 
   /** ----- Handlers----- */
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    props?.setFieldValue?.(props.name, e.target.value);
-    formik?.setFieldValue?.(props.name, e.target.value);
+    const value = valueConverter(e.target.value, props.convertOptions);
+    props?.setFieldValue?.(props.name, value);
+    formik?.setFieldValue?.(props.name, value);
   };
 
   const formikError = props?.error || formik?.getError?.(props.name);
-  const value = props.value || getIn(formik?.values, props.name) || '';
+  const value = props.value || getIn(formik?.values, props.name);
   const disabled = props.disabled || formik?.getDisabled?.(props.name);
 
   return (

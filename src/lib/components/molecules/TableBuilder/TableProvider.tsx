@@ -1,11 +1,14 @@
+import React, { useMemo, useState } from 'react';
+import get from 'lodash/get';
 import { createContext, useContext } from 'react';
 import { ITableHeader } from './types';
+import { ITableProps } from './TableBuilder';
 
 export type ITableContext<V> = {
-  columns: ITableHeader<V>;
   rows: V[];
 
   idKey: string;
+
   //select
   showSelect?: boolean;
   selectActions?: string[];
@@ -14,8 +17,8 @@ export type ITableContext<V> = {
   //actions
   handleActions?: (action: string, id?: string, row?: V) => void;
   handleCellClick?: (key: string, value?: unknown, row?: V) => void;
-  //
 
+  //selected
   selectedItems: string[];
   setSelectedItems: (items: string[]) => void;
 
@@ -23,11 +26,113 @@ export type ITableContext<V> = {
   setSorters?: React.Dispatch<React.SetStateAction<Record<string, string>>>;
 
   showSearch?: boolean;
-  searchTerm?: string;
+
+  //columns
+  columns: ITableHeader<V>;
+  setColumns: React.Dispatch<React.SetStateAction<ITableHeader<V>>>;
+
+  //
   setSearchTerm?: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export const TableContext = createContext<ITableContext<any> | null>(null);
+
+type SortDirection = 'asc' | 'desc';
+
+const sortByKey = (a: any, b: any, key: string, direction: SortDirection) => {
+  const aValue = get(a, key);
+  const bValue = get(b, key);
+
+  // If values are numbers, sort numerically
+  if (typeof aValue === 'number' && typeof bValue === 'number') {
+    return direction === 'asc' ? aValue - bValue : bValue - aValue;
+  }
+
+  // Otherwise, sort lexicographically
+  const aString = String(aValue);
+  const bString = String(bValue);
+
+  return direction === 'asc' ? aString.localeCompare(bString) : bString.localeCompare(aString);
+};
+
+export const TableProvider = <V = unknown,>(
+  props: ITableProps<V> & { children: React.ReactNode },
+) => {
+  //
+  const {
+    header,
+    idKey = 'id',
+    data: rows,
+    showSelect,
+    handleActions,
+    handleCellClick,
+    selectActions,
+    handleSelectAction,
+    showSearch,
+  } = props;
+
+  //states
+  const [selectedItems, setSelectedItems] = useState<string[]>([]);
+  const [sorters, setSorters] = useState<Record<string, string>>({});
+  const [columns, setColumns] = useState(header?.filter((item) => !item?.hidden));
+  const [searchTerm, setSearchTerm] = useState<string>('');
+
+  // Sorting
+  const sortedRows = useMemo(() => {
+    let sortableRows = [...rows];
+
+    // Apply search filter
+    if (searchTerm) {
+      sortableRows = sortableRows.filter((row: V) =>
+        Object?.values(row as object).some((value) =>
+          String(value).toLowerCase().includes(searchTerm.toLowerCase()),
+        ),
+      );
+    }
+
+    Object.keys(sorters).forEach((colKey) => {
+      const direction = sorters[colKey] as SortDirection;
+      sortableRows.sort((a, b) => sortByKey(a, b, colKey, direction));
+    });
+
+    return sortableRows;
+  }, [rows, sorters, searchTerm]);
+
+  return (
+    <TableContext.Provider
+      value={{
+        idKey,
+
+        showSelect,
+        showSearch,
+
+        selectedItems,
+        rows: sortedRows,
+
+        //actions
+        selectActions,
+        setSelectedItems,
+        handleSelectAction,
+        handleActions,
+        handleCellClick,
+
+        //sorters
+        sorters,
+        setSorters,
+
+        //columns
+        columns,
+        setColumns,
+
+        //search
+        setSearchTerm,
+      }}
+    >
+      {/*  */}
+      {props.children}
+    </TableContext.Provider>
+  );
+};
 
 // create a hook
 export const useTableContext = <V,>() => {
@@ -39,5 +144,3 @@ export const useTableContext = <V,>() => {
   }
   return context;
 };
-
-// React.PropsWithChildren<MyProviderProps<Item>>;

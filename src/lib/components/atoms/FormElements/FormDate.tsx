@@ -2,6 +2,7 @@ import { useForm } from '@lib/hooks';
 import { IFormikElement } from './FormTypes';
 import { isNA } from '@lib/util';
 import { getIn } from 'formik';
+import valueConverter from '@lib/util/helpers/valueConverter';
 
 export type IFormDate = IFormikElement & {
   setFieldValue?: (field: string, value: Date, shouldValidate?: boolean) => void;
@@ -16,8 +17,9 @@ export const FormDate: React.FC<IFormDate> = (props) => {
 
   /** ----- Handlers----- */
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    props?.setFieldValue?.(props.name, e.target.valueAsDate);
-    formik?.setFieldValue?.(props.name, e.target.valueAsDate);
+    const value = valueConverter(e.target.valueAsDate, props?.convertOptions);
+    props?.setFieldValue?.(props.name, value);
+    formik?.setFieldValue?.(props.name, value);
   };
 
   const formikError = props?.error || formik.getError?.(props.name);

@@ -12,7 +12,7 @@ export const AllSelectCell = () => {
   };
 
   return (
-    <th className=' bg-gray-100 !px-3 text-left'>
+    <th className='bg-gray-100 w-10'>
       <label className='sr-only' htmlFor='SelectAll'>
         Select All
       </label>

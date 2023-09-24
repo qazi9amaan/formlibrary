@@ -2,6 +2,7 @@ import { useForm } from '@lib/hooks';
 import { IFormOption, IFormikElement } from './FormTypes';
 import { isNA } from '@lib/util';
 import { getIn } from 'formik';
+import valueConverter from '@lib/util/helpers/valueConverter';
 
 export type IFormMultiSelect = IFormikElement & {
   options: IFormOption[];
@@ -14,11 +15,13 @@ export const FormMultiSelect = (props: IFormMultiSelect) => {
   const formik = useForm();
 
   const formikError = props?.error || formik.getError?.(props.name);
-  const value = props.value || getIn(formik?.values, props.name) || '';
+  const value = props.value || getIn(formik?.values, props.name);
 
   /** ----- Handlers----- */
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedOptions = Array.from(e.target.selectedOptions).map((option) => option.value);
+    const selectedOptions = Array.from(e.target.selectedOptions).map((option) =>
+      valueConverter(option.value, props?.convertOptions),
+    );
     props?.setFieldValue?.(props.name, selectedOptions);
     formik?.setFieldValue?.(props.name, selectedOptions);
   };

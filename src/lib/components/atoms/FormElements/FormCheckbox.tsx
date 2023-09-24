@@ -2,6 +2,7 @@ import { IFormikElement } from './FormTypes';
 import { isNA } from '@lib/util';
 import { useForm } from '@lib/hooks';
 import { getIn } from 'formik';
+import valueConverter from '@lib/util/helpers/valueConverter';
 
 export type ICheckBoxOption = {
   label: string;
@@ -32,8 +33,10 @@ export const FormCheckbox = (props: IFormCheckBox) => {
   /** ----- Handlers----- */
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     //
-    const { checked, value: optValue } = e.target;
+    const { checked, value } = e.target;
     const { name, setFieldValue } = props;
+
+    const optValue = valueConverter(value, props?.convertOptions);
 
     if (checked) {
       setFieldValue?.(name, [...finalValue, optValue]);

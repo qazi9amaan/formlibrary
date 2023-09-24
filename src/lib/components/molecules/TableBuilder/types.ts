@@ -19,17 +19,18 @@ export type IBadgeColors = {
   grey?: string | number | boolean;
 };
 
-export type IAction<V = any> = string | { whenRowHas: (row: V) => string };
+export type IAction<V = unknown> = string | { whenRowHas: (row: V) => string };
 
-export type ITableCellHeader<V = any> = {
+export type ITableCellHeader<V = unknown> = {
   type?: ICellType;
   label: string;
   sortable?: boolean;
-  extract?: (row: V) => any;
+  extract?: (row: V) => string | number | boolean;
+  hidden?: boolean;
 } & (
   | { type: 'actions'; key?: string; actions: IAction<V>[] }
   | { type: 'badge'; key: string; badges: IBadgeColors }
   | { type: Exclude<ICellType, 'actions' | 'badge'>; key: string }
 );
 
-export type ITableHeader<V> = ITableCellHeader<V>[];
+export type ITableHeader<V = unknown> = ITableCellHeader<V>[];

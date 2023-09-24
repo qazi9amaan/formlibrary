@@ -31,6 +31,9 @@ export const TableBody = <T = unknown,>() => {
             {/*  */}
 
             {columns?.map((column: ITableCellHeader<T>, index: number) => {
+              // in case of hidden column
+              if (column?.hidden) return null;
+
               // in case of actions column
               if (column.type === 'actions')
                 return (
