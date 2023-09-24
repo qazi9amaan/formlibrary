@@ -22,7 +22,7 @@ export const FormInput: React.FC<IFormInput> = (props) => {
   };
 
   const formikError = props?.error || formik.getError?.(props.name);
-  const value = String(props.value) || String(getIn(formik?.values, props.name)) || '';
+  const value = String(props.value) || getIn(formik?.values, props.name) || '';
   const disabled = props.disabled || formik?.getDisabled?.(props.name);
 
   // ----- Render -----
