@@ -1,47 +1,33 @@
-import { FieldArray } from 'formik';
+import { ArrayHelpers, FieldArray } from 'formik';
 
-type IRenderProps = {
+type IRenderProps<T = unknown> = {
   baseName: string;
-  value: any;
+  value: T;
   index: number;
-  push: (obj: any) => void;
-  remove: (index: number) => void;
-  swap: (indexA: number, indexB: number) => void;
-  move: (from: number, to: number) => void;
-  insert: (index: number, value: any) => void;
-  unshift: (value: any) => number;
-  replace: (index: number, value: any) => void;
-};
+  hello: boolean;
+} & ArrayHelpers;
 
-type Props<T = any> = {
+type Props<T = unknown> = {
   name: string;
   values: T[];
-  render: (props: IRenderProps) => JSX.Element;
+  render: (props: IRenderProps<T>) => JSX.Element;
 };
 
-export const FormArray = <T = any,>({ name, values, render }: Props<T>) => {
+export const FormArray = <T = unknown,>({ name, values, render }: Props<T>) => {
   return (
     <FieldArray
       name={name}
-      render={({ push, remove, swap, move, insert, unshift, replace }: any) => (
-        <>
-          {values.map((value, index) => {
-            const baseName = `${name}[${index}]`;
-            return render({
-              baseName,
-              value,
-              index,
-              push,
-              remove,
-              swap,
-              move,
-              insert,
-              unshift,
-              replace,
-            });
-          })}
-        </>
-      )}
+      render={(helpers: ArrayHelpers) =>
+        values.map((value, index) => {
+          return render({
+            baseName: `${name}[${index}]`,
+            value,
+            index,
+            hello: true,
+            ...helpers,
+          });
+        })
+      }
     />
   );
 };

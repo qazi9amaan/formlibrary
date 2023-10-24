@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTableContext } from '../TableProvider';
 import { FaCaretDown } from 'react-icons/fa';
+import avoidMultipleClick from '@lib/util/helpers/avoidMultipleClick';
 
 const MultActions = () => {
   //
@@ -20,7 +21,7 @@ const MultActions = () => {
           {selectActions?.map((action) => (
             <li key={action}>
               <button
-                onClick={() => handleSelectAction?.(action, selectedItems)}
+                onClick={avoidMultipleClick(() => handleSelectAction?.(action, selectedItems))}
                 type='button'
                 disabled={!selectedItems.length}
                 className='w-full px-4 py-2 text-sm text-left

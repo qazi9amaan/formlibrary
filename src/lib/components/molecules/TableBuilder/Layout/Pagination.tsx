@@ -1,4 +1,5 @@
 import { Button } from '@lib/components/atoms/Button';
+import avoidMultipleClick from '@lib/util/helpers/avoidMultipleClick';
 import React from 'react';
 
 export type IPaginationProps = {
@@ -13,14 +14,14 @@ export const Pagination: React.FC<IPaginationProps> = (props) => {
   return (
     <div className='mt-3 space-x-3'>
       <Button
-        onClick={() => handlePagination?.(page - 1)}
+        onClick={avoidMultipleClick(() => handlePagination?.(page - 1), 150)}
         disabled={page === 1}
         cs='btn-outline-white !rounded-md'
       >
         Previous
       </Button>
       <Button
-        onClick={() => handlePagination?.(page + 1)}
+        onClick={avoidMultipleClick(() => handlePagination?.(page + 1), 150)}
         disabled={page === totalPages}
         cs='btn-outline-white !rounded-md'
       >

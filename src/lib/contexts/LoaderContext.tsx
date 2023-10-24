@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, useCallback } from 'react';
 import { Loader } from '@lib/components/atoms/Loader';
 
 export interface ILoader {
@@ -29,8 +29,8 @@ export const LoaderContext = createContext<ILoader | null>(null);
 export const LoaderProvider: React.FC<LoaderProviderProps> = ({ children }) => {
   const [show, setShow] = useState(false);
 
-  const showLoader = () => setShow(true);
-  const hideLoader = () => setShow(false);
+  const showLoader = useCallback(() => setShow(true), []);
+  const hideLoader = useCallback(() => setShow(false), []);
 
   return (
     <LoaderContext.Provider value={{ show, showLoader, hideLoader }}>

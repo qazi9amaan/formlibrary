@@ -1,5 +1,5 @@
 import { IModalOptions, Modal } from '@lib/components/atoms/Modal';
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useCallback } from 'react';
 
 export interface IModal {
   closeModal: () => void;
@@ -26,52 +26,59 @@ export const ModalContext = createContext<IModal | null>(null);
  *   <App />
  *  </ModalProvider>
  */
+const defaultOptions: IModalOptions = {
+  large: false,
+  title: '',
+  hideHeader: false,
+  hideFooter: false,
+  body: '',
+  hideCancel: false,
+  cancelText: 'Cancel',
+  actionCancel: () => null,
+  hideConfirm: false,
+  confirmText: 'Ok',
+  actionConfirm: () => null,
+  hideBorder: true,
+};
+
+const deleteOptions = {
+  body: 'Are you sure you want to delete this item?. This action cannot be undone.',
+  title: 'Deleting ...',
+  confirmText: 'Delete',
+};
+
 export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
   //
-
-  const defaultOptions: IModalOptions = {
-    large: false,
-    title: '',
-    hideHeader: false,
-    hideFooter: false,
-    body: '',
-    hideCancel: false,
-    cancelText: 'Cancel',
-    actionCancel: () => null,
-    hideConfirm: false,
-    confirmText: 'Ok',
-    actionConfirm: () => null,
-    hideBorder: true,
-  };
 
   const [options, setOptions] = useState<IModalOptions>(defaultOptions);
   const dailogRef = React.useRef<HTMLDialogElement>(null);
 
-  const resetDefault = () => setOptions(defaultOptions);
+  const resetDefault = useCallback(() => setOptions(defaultOptions), []);
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     if (!dailogRef?.current?.open) return;
     dailogRef?.current?.close();
-  };
+  }, [dailogRef]);
 
-  const openModal = (_options?: IModalOptions) => {
-    _options && setOptions((prev) => ({ ...prev, ..._options }));
-    if (dailogRef?.current?.open) return;
-    dailogRef?.current?.showModal();
-  };
+  const openModal = useCallback(
+    (options?: IModalOptions) => {
+      options && setOptions((prev) => ({ ...prev, ...options }));
+      if (dailogRef?.current?.open) return;
+      dailogRef?.current?.showModal();
+    },
+    [dailogRef],
+  );
   /**
    * This function is used to open delete modal
    * @param {() => void} cb - callback function
    * @param _options - options for modal
    */
-  const openDeleteModal = (cb?: () => void, _options?: IModalOptions) => {
-    const deleteOptions = {
-      body: 'Are you sure you want to delete this item?. This action cannot be undone.',
-      title: 'Deleting ...',
-      confirmText: 'Delete',
-    };
-    openModal({ ...deleteOptions, ..._options, actionConfirm: cb || (() => null) });
-  };
+  const openDeleteModal = useCallback(
+    (cb?: () => void, _options?: IModalOptions) => {
+      openModal({ ...deleteOptions, ..._options, actionConfirm: cb || (() => null) });
+    },
+    [openModal],
+  );
 
   return (
     <ModalContext.Provider value={{ openDeleteModal, openModal, closeModal }}>

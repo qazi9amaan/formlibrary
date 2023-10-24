@@ -3,6 +3,7 @@ import { IFormikElement } from './FormTypes';
 import { isNA } from '@lib/util';
 import { getIn } from 'formik';
 import valueConverter from '@lib/util/helpers/valueConverter';
+import React, { useCallback } from 'react';
 
 export type IFormInput = IFormikElement & {
   type?: string;
@@ -12,14 +13,19 @@ export type IFormInput = IFormikElement & {
 export const FormInput: React.FC<IFormInput> = (props) => {
   // formik
   const formik = useForm();
+  const { handleChange: propsHandleChange } = props || {};
+  const { handleChange: formikHandleChange } = formik || {};
 
   /** ----- Handlers----- */
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.target.value = valueConverter(e.target.value, props?.convertOptions);
-    if (props?.uppercase) e.target.value = e.target.value.toUpperCase();
-    props?.handleChange?.(e);
-    formik?.handleChange?.(e);
-  };
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      e.target.value = valueConverter(e.target.value, props?.convertOptions);
+      if (props?.uppercase) e.target.value = e.target.value.toUpperCase();
+      propsHandleChange?.(e);
+      formikHandleChange?.(e);
+    },
+    [propsHandleChange, formikHandleChange],
+  );
 
   const formikError = props?.error || formik.getError?.(props.name);
   const value = props.value || getIn(formik?.values, props.name) || '';

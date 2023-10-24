@@ -8,6 +8,7 @@ import ImageCell from '../ChildCells/ImageCell';
 import BadgeCell from '../ChildCells/BadgeCell';
 import { memo } from 'react';
 import DateCell from '../ChildCells/DateCell';
+import avoidMultipleClick from '@lib/util/helpers/avoidMultipleClick';
 
 type Props<T> = {
   column: ITableCellHeader<T>;
@@ -20,10 +21,10 @@ const Cell = <T = unknown,>({ currentRow, column }: Props<T>) => {
   const _value = get(currentRow, column.key as string);
   const value = column?.extract ? column?.extract?.(currentRow) : _value;
 
-  const handleClick = () => {
+  const handleClick = avoidMultipleClick(() => {
     if (['button', 'link'].includes(column.type))
       handleCellClick?.(column.key as string, value, currentRow);
-  };
+  });
 
   const renderCellContent = () => {
     switch (column.type) {
