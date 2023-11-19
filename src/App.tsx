@@ -2,19 +2,33 @@ import { ITableHeader, Table } from '../index';
 
 type IBook = {
   name: string;
-  author: string;
+  author: {
+    name: string;
+    place: string;
+  };
 };
 
 const header: ITableHeader<IBook> = [
   { type: 'string', label: 'Name', sortable: true, key: 'name' },
-  { type: 'string', label: 'Author', key: 'author' },
+  { type: 'string', label: 'Author', key: 'author.name' },
+  { type: 'string', label: 'place', key: 'authorPlace', extract: (book) => book.author.place },
   { type: 'actions', label: 'Actions', actions: ['view'] },
 ];
 
 const books: IBook[] = [
   {
-    name: 'The Lord of the Rings',
-    author: 'J.R.R. Tolkien',
+    name: 'hi bello',
+    author: {
+      name: 'Qazi',
+      place: 'Sonwar',
+    },
+  },
+  {
+    name: 'byw tana',
+    author: {
+      name: 'Amaan',
+      place: 'Shivpora',
+    },
   },
 ];
 

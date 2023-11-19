@@ -100,12 +100,10 @@ export const TableProvider = <V = unknown,>(
     // Apply search filter
     if (searchTerm) {
       sortableRows = sortableRows.filter((row: V) => {
-        return Object?.entries(row as object).some(([key, value]) => {
-          const extract = headerObject?.[key]?.extract?.(row);
-          const result = extract ? extract : value;
-          return String(result || '')
-            .toLowerCase()
-            .includes(searchTerm.toLowerCase());
+        return Object?.entries(headerObject).some(([key, colOptions]) => {
+          const extractValue = colOptions?.extract?.(row);
+          const result = extractValue ? extractValue : get(row, key, '');
+          return String(result).toLowerCase().includes(searchTerm.toLowerCase());
         });
       });
     }
