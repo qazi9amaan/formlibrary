@@ -1,0 +1,9 @@
+.table-date-picker .react-daterange-picker__wrapper {
+  border: none;
+  padding: 0.2em 0;
+}
+
+.table-date-picker .react-calendar {
+  background: #fff;
+  @apply border-0 rounded-lg shadow-md mt-1 p-1;
+}

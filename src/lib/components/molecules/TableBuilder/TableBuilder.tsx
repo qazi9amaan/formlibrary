@@ -4,6 +4,9 @@ import { TableHeader } from './TableHeader';
 import { ITableHeader } from './types';
 import { TableProvider } from './TableProvider';
 import { memo } from 'react';
+import { cn } from '../../../util';
+import { isEmpty } from 'lodash';
+import { DateRangeValue } from './Layout/FilterBox';
 
 export type ITableProps<V = unknown> = {
   header: ITableHeader<V>;
@@ -24,6 +27,8 @@ export type ITableProps<V = unknown> = {
 
   //
   pagination?: IPaginationProps;
+  dateRange?: DateRangeValue;
+  onDateRangeChange?: (dates: DateRangeValue) => void;
 };
 
 const TableBuilder = <V = unknown,>(props: ITableProps<V>) => {
@@ -32,18 +37,20 @@ const TableBuilder = <V = unknown,>(props: ITableProps<V>) => {
 
   return (
     <TableProvider<V> {...props}>
-      <div
-        className='
-        min-h-[400px] min-w-full max-w-full 
-        bg-white pb-4 overflow-x-auto shadow rounded-lg 
-        scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar 
-        transition-all ease-in-out duration-500'
+      <section
+        className={cn(
+          ' bg-white pb-4 overflow-x-auto shadow rounded-lg',
+          'scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar',
+          'transition-all ease-in-out duration-500',
+          ' min-h-[400px] min-w-full max-w-full',
+          !isEmpty(pagination) ? 'max-h-[400px]' : '',
+        )}
       >
         <table className='text-sm table-auto  min-w-full  '>
           <TableHeader />
           <TableBody />
         </table>
-      </div>
+      </section>
       {pagination && <Pagination {...pagination} />}
     </TableProvider>
   );

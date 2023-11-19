@@ -1,8 +1,9 @@
 import React, { useMemo, useState } from 'react';
 import get from 'lodash/get';
 import { createContext, useContext } from 'react';
-import { ITableHeader } from './types';
+import { ITableCellHeader, ITableHeader } from './types';
 import { ITableProps } from './TableBuilder';
+import { DateRangeValue } from './Layout/FilterBox';
 
 export type ITableContext<V> = {
   rows: V[];
@@ -33,6 +34,10 @@ export type ITableContext<V> = {
 
   //
   setSearchTerm?: React.Dispatch<React.SetStateAction<string>>;
+
+  showDateRange?: boolean;
+  dateRange?: DateRangeValue;
+  onDateRangeChange?: (dates: DateRangeValue) => void;
 };
 
 export const TableContext = createContext<ITableContext<any> | null>(null);
@@ -69,9 +74,20 @@ export const TableProvider = <V = unknown,>(
     selectActions,
     handleSelectAction,
     showSearch,
+
+    dateRange,
+    onDateRangeChange,
   } = props;
 
-  //states
+  const headerObject = useMemo(() => {
+    return header?.reduce((acc, item) => {
+      if (item?.type !== 'actions') {
+        acc[item?.key as string] = item;
+      }
+      return acc;
+    }, {} as Record<string, ITableCellHeader<V>>);
+  }, [header]);
+
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [sorters, setSorters] = useState<Record<string, string>>({});
   const [columns, setColumns] = useState(header?.filter((item) => !item?.hidden));
@@ -83,11 +99,15 @@ export const TableProvider = <V = unknown,>(
 
     // Apply search filter
     if (searchTerm) {
-      sortableRows = sortableRows.filter((row: V) =>
-        Object?.values(row as object).some((value) =>
-          String(value).toLowerCase().includes(searchTerm.toLowerCase()),
-        ),
-      );
+      sortableRows = sortableRows.filter((row: V) => {
+        return Object?.entries(row as object).some(([key, value]) => {
+          const result = headerObject[key]?.extract?.(row) || value;
+          return (
+            String(result).toLowerCase().includes(searchTerm.toLowerCase()) ||
+            String(result?.replaceAll('.', '')).toLowerCase().includes(searchTerm.toLowerCase())
+          );
+        });
+      });
     }
 
     Object.keys(sorters).forEach((colKey) => {
@@ -96,7 +116,7 @@ export const TableProvider = <V = unknown,>(
     });
 
     return sortableRows;
-  }, [rows, sorters, searchTerm]);
+  }, [rows, sorters, searchTerm, headerObject]);
 
   return (
     <TableContext.Provider
@@ -126,6 +146,11 @@ export const TableProvider = <V = unknown,>(
 
         //search
         setSearchTerm,
+
+        //dateRange
+        dateRange,
+        onDateRangeChange,
+        showDateRange: !!onDateRangeChange,
       }}
     >
       {/*  */}
