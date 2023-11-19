@@ -101,11 +101,11 @@ export const TableProvider = <V = unknown,>(
     if (searchTerm) {
       sortableRows = sortableRows.filter((row: V) => {
         return Object?.entries(row as object).some(([key, value]) => {
-          const result = headerObject[key]?.extract?.(row) || value;
-          return (
-            String(result).toLowerCase().includes(searchTerm.toLowerCase()) ||
-            String(result?.replaceAll('.', '')).toLowerCase().includes(searchTerm.toLowerCase())
-          );
+          const extract = headerObject?.[key]?.extract?.(row);
+          const result = extract ? extract : value;
+          return String(result || '')
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase());
         });
       });
     }
