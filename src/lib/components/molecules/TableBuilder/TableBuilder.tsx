@@ -5,7 +5,6 @@ import { ITableHeader } from './types';
 import { TableProvider } from './TableProvider';
 import { memo } from 'react';
 import { cn } from '../../../util';
-import { isEmpty } from 'lodash';
 import { DateRangeValue } from './Layout/FilterBox';
 
 export type ITableProps<V = unknown> = {
@@ -43,7 +42,6 @@ const TableBuilder = <V = unknown,>(props: ITableProps<V>) => {
           'scrollbar-track-transparent scrollbar-thumb-gray-100 scrollbar',
           'transition-all ease-in-out duration-500',
           ' min-h-[400px] min-w-full max-w-full',
-          !isEmpty(pagination) ? 'max-h-[400px]' : '',
         )}
       >
         <table className='text-sm table-auto  min-w-full  '>
