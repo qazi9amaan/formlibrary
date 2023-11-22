@@ -10,6 +10,8 @@ export type ITableContext<V> = {
 
   idKey: string;
 
+  searchTerm: string;
+
   //select
   showSelect?: boolean;
   selectActions?: string[];
@@ -120,6 +122,8 @@ export const TableProvider = <V = unknown,>(
     <TableContext.Provider
       value={{
         idKey,
+
+        searchTerm,
 
         showSelect,
         showSearch,

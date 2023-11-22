@@ -29,7 +29,7 @@ export type ITableCellHeader<V = unknown> = {
   hidden?: boolean;
 } & (
   | { type: 'actions'; key?: string; actions: IAction<V>[] }
-  | { type: 'badge'; key: string; badges: IBadgeColors }
+  | { type: 'badge'; key: string; badges: IBadgeColors; shallow?: boolean }
   | { type: Exclude<ICellType, 'actions' | 'badge'>; key: string }
 );
 

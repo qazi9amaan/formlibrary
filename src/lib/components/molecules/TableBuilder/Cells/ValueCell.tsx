@@ -37,7 +37,7 @@ const Cell = <T = unknown,>({ currentRow, column }: Props<T>) => {
       case 'boolean':
         return <BooleanCell value={value} />;
       case 'badge':
-        return <BadgeCell value={value} badgeMap={column.badges} />;
+        return <BadgeCell value={value} badgeMap={column.badges} shallow={column?.shallow} />;
       case 'link':
         return <StringCell value={value} isLink />;
       case 'button':

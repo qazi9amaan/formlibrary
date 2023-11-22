@@ -9,6 +9,7 @@ import FilterBox from './Layout/FilterBox';
 
 export const TableHeader = () => {
   const {
+    searchTerm,
     showSelect,
     showSearch,
     showDateRange,
@@ -34,6 +35,7 @@ export const TableHeader = () => {
             {showSearch && (
               <input
                 type='search'
+                value={searchTerm}
                 placeholder='Search for anything'
                 onChange={(e) => setSearchTerm?.(e.target.value)}
                 className='w-1/5 ml-2 h-9 text-sm rounded-full px-5 border-gray-200 focus:outline-none bg-gray-100 focus:w-1/3 transition-all duration-500 ease-in-out focus:ring-0 focus:border-gray-300 focus:bg-white '

@@ -4,6 +4,7 @@ import { IBadgeColors } from '../types';
 type Props = {
   value: string;
   badgeMap: IBadgeColors;
+  shallow?: boolean;
 };
 
 interface BadgeBg {
@@ -19,8 +20,14 @@ const badgeBg: BadgeBg = {
   grey: 'bg-gray-100 text-gray-800',
 };
 
-const getColor = (value: string, badgeMap: IBadgeColors) => {
+const getColor = (value: string, badgeMap: IBadgeColors, shallow?: boolean) => {
   for (const [key, badgeValue] of Object.entries(badgeMap)) {
+    if (shallow) {
+      if (value.includes(String(badgeValue))) {
+        return badgeBg[key] || badgeBg.grey;
+      }
+    }
+
     if (badgeValue === value) {
       return badgeBg[key] || badgeBg.grey;
     }
@@ -28,8 +35,8 @@ const getColor = (value: string, badgeMap: IBadgeColors) => {
   return badgeBg.grey;
 };
 
-const BadgeCell: React.FC<Props> = memo(({ value, badgeMap }) => {
-  const color = getColor(value, badgeMap);
+const BadgeCell: React.FC<Props> = memo(({ value, badgeMap, shallow }) => {
+  const color = getColor(value, badgeMap, shallow);
   return (
     <span className={`px-3 py-1 inline-flex text-sm leading-5 font-semibold rounded-2xl ${color}`}>
       {value}
