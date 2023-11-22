@@ -74,7 +74,7 @@ export const TableProvider = <V = unknown,>(
     selectActions,
     handleSelectAction,
     showSearch,
-
+    searchTerm: defaultSearch = '',
     dateRange,
     onDateRangeChange,
   } = props;
@@ -91,7 +91,7 @@ export const TableProvider = <V = unknown,>(
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [sorters, setSorters] = useState<Record<string, string>>({});
   const [columns, setColumns] = useState(header?.filter((item) => !item?.hidden));
-  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [searchTerm, setSearchTerm] = useState<string>(defaultSearch);
 
   // Sorting
   const sortedRows = useMemo(() => {

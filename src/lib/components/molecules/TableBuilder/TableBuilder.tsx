@@ -15,6 +15,7 @@ export type ITableProps<V = unknown> = {
 
   //search
   showSearch?: boolean;
+  searchTerm?: string;
 
   //select
   showSelect?: boolean;
