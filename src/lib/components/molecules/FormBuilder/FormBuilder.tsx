@@ -10,11 +10,12 @@ export type IProps<V extends FormikValues> = IFormBuilderProps<V>;
 export type IFormBuilderProps<V extends FormikValues> = {
   formJSON: FormJSON<V>;
   buttonName?: string;
+  children?: React.ReactNode;
 };
 
 export const FormBuilder = <V extends FormikValues>(props: IProps<V>) => {
   // destructure props
-  const { formJSON, buttonName } = props;
+  const { formJSON, buttonName, children = <></> } = props;
   const { isSubmitting, mode } = useForm<V>();
 
   return (
@@ -23,6 +24,8 @@ export const FormBuilder = <V extends FormikValues>(props: IProps<V>) => {
       {formJSON.map((row: any) => (
         <FormRow {...row} {...props} key={row.id} />
       ))}
+      {/* children */}
+      {children}
       {/* button */}
       {mode !== 'VIEW' && (
         <Button type='submit' disabled={isSubmitting} cs='mt-5'>
