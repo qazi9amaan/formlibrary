@@ -22,6 +22,8 @@ export interface IFormikElement {
   placeholder?: string;
 
   convertOptions?: IConvertOptions;
+
+  className?: string;
 }
 
 export type IFormOption = {

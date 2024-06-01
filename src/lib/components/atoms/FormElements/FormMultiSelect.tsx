@@ -1,6 +1,6 @@
 import { useForm } from '@lib/hooks';
 import { IFormOption, IFormikElement } from './FormTypes';
-import { isNA } from '@lib/util';
+import { cn, isNA } from '@lib/util';
 import { getIn } from 'formik';
 import valueConverter from '@lib/util/helpers/valueConverter';
 
@@ -44,7 +44,10 @@ export const FormMultiSelect = (props: IFormMultiSelect) => {
           onChange={handleChange}
           disabled={disabled}
           onBlur={props?.handleBlur || formik?.handleBlur}
-          className={`form--input-field form-select ${!isNA(formikError) && 'form--error'}`}
+          className={cn(
+            `form--input-field form-select ${!isNA(formikError) && 'form--error'}`,
+            props?.className,
+          )}
         >
           {props?.showEmptyOption && <option value=''>Select</option>}
           {props?.options?.map((option: any) => (

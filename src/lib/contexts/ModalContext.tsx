@@ -13,19 +13,6 @@ interface ModalProviderProps {
 
 export const ModalContext = createContext<IModal | null>(null);
 
-/**
- * @description ModalProvider
- * @param {React.ReactNode} children
- * @returns {React.ReactNode}
- * @example
- * import { ModalProvider } from '@lib/contexts/ModalContext';
- *
- * const App = () => {
- *  return (
- *   <ModalProvider>
- *   <App />
- *  </ModalProvider>
- */
 const defaultOptions: IModalOptions = {
   large: false,
   title: '',

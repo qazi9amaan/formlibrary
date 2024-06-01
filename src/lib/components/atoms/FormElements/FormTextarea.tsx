@@ -1,6 +1,6 @@
 import { useForm } from '@lib/hooks';
 import { IFormikElement } from './FormTypes';
-import { isNA } from '@lib/util';
+import { cn, isNA } from '@lib/util';
 import { getIn } from 'formik';
 import valueConverter from '@lib/util/helpers/valueConverter';
 
@@ -41,7 +41,10 @@ export const FormTextarea: React.FC<IFormTextarea> = (props) => {
           disabled={disabled}
           placeholder={props.placeholder}
           onBlur={props?.handleBlur || formik?.handleBlur}
-          className={`form--input-field ${!isNA(formikError) && 'form--error'}`}
+          className={cn(
+            `form--input-field ${!isNA(formikError) && 'form--error'}`,
+            props?.className,
+          )}
         />
 
         {formikError && <span className='form--error-text'>{formikError}</span>}

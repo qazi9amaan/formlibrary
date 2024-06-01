@@ -1,6 +1,6 @@
 import { useForm } from '@lib/hooks';
 import { IFormikElement } from './FormTypes';
-import { isNA } from '@lib/util';
+import { cn, isNA } from '@lib/util';
 
 export type IFormButton = IFormikElement & {
   type?: 'button' | 'submit' | 'reset' | undefined;
@@ -25,7 +25,10 @@ export const FormButton = (props: IFormButton) => {
           id={props.name}
           onClick={handleOnClick}
           disabled={props.disabled}
-          className={`form--input-button ${!isNA(formikError) && 'form--input-button-error'}`}
+          className={cn(
+            `form--input-button ${!isNA(formikError) && 'form--input-button-error'}`,
+            props?.className,
+          )}
           name={props.name}
           type={props.type}
         >
