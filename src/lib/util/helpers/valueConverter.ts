@@ -7,6 +7,7 @@ export type IConvertOptions = {
   isFunction?: boolean;
   isNull?: boolean;
   isUndefined?: boolean;
+  skipFormik?: boolean;
 };
 
 const valueConverter = (value: any, options?: IConvertOptions) => {

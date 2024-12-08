@@ -22,7 +22,7 @@ export const FormInput: React.FC<IFormInput> = (props) => {
       e.target.value = valueConverter(e.target.value, props?.convertOptions);
       if (props?.uppercase) e.target.value = e.target.value.toUpperCase();
       propsHandleChange?.(e);
-      formikHandleChange?.(e);
+      if (!props.convertOptions?.skipFormik) formikHandleChange?.(e);
     },
     [propsHandleChange, formikHandleChange],
   );
